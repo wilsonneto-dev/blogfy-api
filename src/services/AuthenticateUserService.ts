@@ -3,6 +3,7 @@ import { getRepository } from 'typeorm';
 import { sign } from 'jsonwebtoken';
 
 import User from '../models/User';
+import AppError from '../errors/AppError';
 
 interface IRequest {
   email: string;
@@ -22,10 +23,10 @@ class AutenticateUserService {
     const userRepository = getRepository(User);
 
     const userByEmail = await userRepository.findOne({ email });
-    if (!userByEmail) return null;
+    if (!userByEmail) throw new AppError('Incorrect credentials', 401);
 
     const passMatched = await compare(password, userByEmail.password ?? '');
-    if (!passMatched) return null;
+    if (!passMatched) throw new AppError('Incorrect credentials', 401);
 
     const token = sign(
       {
