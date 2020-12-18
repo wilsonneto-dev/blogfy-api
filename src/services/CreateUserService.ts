@@ -7,11 +7,9 @@ interface Request {
   email: string;
   password: string;
 }
-
 class CreateUserService {
   public async execute({ name, email, password }: Request): Promise<User> {
     const usersRepository = getRepository(User);
-
     const hashedPassword = await hash(password, 8);
 
     const user = usersRepository.create({

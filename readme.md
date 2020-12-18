@@ -61,3 +61,10 @@ export default class CreateAppointments1600772700374
   }
 }
 ```
+
+#### Next Steps
++ DI
++ testes
++ validações de parametros (joy + celebrate)
++ refresh token
++ .env
