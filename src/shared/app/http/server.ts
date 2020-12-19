@@ -1,15 +1,16 @@
 import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
 
+import '@shared/infra/data/typeorm';
+import '@shared/container';
+
+import AppError from '@shared/errors/AppError';
+import config from '@config/http';
+
 import router from './routes';
 
-import './database';
-import AppError from './errors/AppError';
-
 const app = express();
-
 app.use(express.json());
-
 app.use(router);
 
 app.get('/', (request, response) => {
@@ -28,10 +29,12 @@ app.use(
     return response.status(500).json({
       status: 'error',
       message: 'Internal Server Error',
+      internalMessage: error.message,
     });
   },
 );
 
-app.listen(3000, () => {
-  console.log('running on http://localhost:3000/');
+app.listen(config.port, () => {
+  // eslint-disable-next-line no-console
+  console.log(`running on http://localhost:${config.port}/`);
 });

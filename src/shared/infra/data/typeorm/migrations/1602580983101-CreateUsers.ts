@@ -5,6 +5,7 @@ export default class CreateUsers1602580983101 implements MigrationInterface {
     await queryRunner.createTable(
       new Table({
         name: 'users',
+
         columns: [
           {
             name: 'id',
@@ -15,17 +16,20 @@ export default class CreateUsers1602580983101 implements MigrationInterface {
             generationStrategy: 'uuid',
             default: 'uuid_generate_v4()',
           },
+
           {
             name: 'name',
             type: 'varchar',
             isNullable: false,
           },
+
           {
             name: 'email',
             type: 'varchar',
             isUnique: true,
             isNullable: false,
           },
+
           {
             name: 'password',
             type: 'varchar',

@@ -7,7 +7,7 @@
   "database": "postgres",
   "logging": true,
   "entities": [
-    "./src/models/*.{ts,js}"
+    "./src/modules/*/infra/data/typeorm/schemas/*.{ts,js}"
   ],
   "migrations": [
     "./src/database/migrations/*.ts"

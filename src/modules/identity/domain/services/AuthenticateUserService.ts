@@ -1,9 +1,11 @@
-import { compare, hash } from 'bcryptjs';
+import { compare } from 'bcryptjs';
 import { getRepository } from 'typeorm';
 import { sign } from 'jsonwebtoken';
 
-import User from '../models/User';
-import AppError from '../errors/AppError';
+import AppError from '@shared/errors/AppError';
+import config from '@config/auth';
+
+import User from '@modules/identity/domain/entities/User';
 
 interface IRequest {
   email: string;
@@ -31,10 +33,10 @@ class AutenticateUserService {
     const token = sign(
       {
         subject: userByEmail.id,
-        expiresIn: '1d',
+        expiresIn: config.jwt.expiresIn,
         name: userByEmail.name,
       },
-      'secret-kei-123654',
+      config.jwt.secret,
     );
 
     return { user: { id: userByEmail.id, name: userByEmail.name }, token };
