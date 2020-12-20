@@ -1,4 +1,4 @@
-import CreateUserService from '@modules/identity/domain/services/CreateUserService';
+import CreateUserService from '@modules/identity/domain/services/user/CreateUserService';
 import { Response, Request } from 'express';
 import { container } from 'tsyringe';
 
