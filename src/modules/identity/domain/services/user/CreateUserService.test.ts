@@ -27,7 +27,9 @@ describe('CreateUserService', () => {
 
     expect(userCreated.password).not.toBe(fakeUserData.password);
 
-    const fakeUserDataClone = { ...fakeUserData };
+    const fakeUserDataClone: Partial<ICreateUserServiceRequest> = {
+      ...fakeUserData,
+    };
     delete fakeUserDataClone.password;
     expect(userCreated).toMatchObject(fakeUserDataClone);
   });
