@@ -3,7 +3,7 @@
     "target": "es5",
     "module": "commonjs",
     "outDir": "./dist",
-    "rootDir": "./src",
+    /* "rootDir": "./src", */
     "strict": true,
     "strictPropertyInitialization": false,
     "baseUrl": "./src",
