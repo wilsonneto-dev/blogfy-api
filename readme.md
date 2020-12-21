@@ -1,12 +1,15 @@
 Boilerplate for MVP node projects
 
 With:
-- Eslint
-- Prettier
+- Eslint Configured
+- Prettier Configured
 - Typescript
-- Dev enviroment (ts-node-dev setup with debug configurations)
+- Dev enviroment
 - VS Code debugger setup
 - TypeORM (+Migrations Setup)
+- Modules/DDD folders struct
+- Unity Tests with jest + code coverage
+- DI with tsyringe
 
 ### Running in Dev Enviroment
 Running the app:
@@ -63,8 +66,9 @@ export default class CreateAppointments1600772700374
 ```
 
 #### Next Steps
-+ DI
-+ testes
 + validações de parametros (joy + celebrate)
 + refresh token
 + .env
++ husky precommit and pre push
++ integration tests
+
