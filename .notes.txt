@@ -1,4 +1,0 @@
-+ DI
-+ testes
-+ validações de parametros (joy + celebrate)
-+ refresh token

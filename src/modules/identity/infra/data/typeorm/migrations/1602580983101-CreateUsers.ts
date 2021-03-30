@@ -1,17 +1,11 @@
-/* eslint-disable class-methods-use-this */
-import {
-  MigrationInterface,
-  QueryRunner,
-  Table,
-  TableForeignKey,
-} from 'typeorm';
+import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export default class CreateAppointments1600772700374
-  implements MigrationInterface {
+export default class CreateUsers1602580983101 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'appointments',
+        name: 'users',
+
         columns: [
           {
             name: 'id',
@@ -22,21 +16,32 @@ export default class CreateAppointments1600772700374
             generationStrategy: 'uuid',
             default: 'uuid_generate_v4()',
           },
+
           {
-            name: 'provider_id',
-            type: 'uuid',
-            isNullable: true,
-          },
-          {
-            name: 'date',
-            type: 'timestamp with time zone',
+            name: 'name',
+            type: 'varchar',
             isNullable: false,
           },
+
+          {
+            name: 'email',
+            type: 'varchar',
+            isUnique: true,
+            isNullable: false,
+          },
+
+          {
+            name: 'password',
+            type: 'varchar',
+            isNullable: false,
+          },
+
           {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',
           },
+
           {
             name: 'updated_at',
             type: 'timestamp',
@@ -48,6 +53,6 @@ export default class CreateAppointments1600772700374
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('appointments');
+    await queryRunner.dropTable('users');
   }
 }

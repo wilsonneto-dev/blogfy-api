@@ -1,18 +1,21 @@
-{
-  "type": "postgres",
-  "host": "localhost",
-  "port": 5432,
-  "username": "postgres",
-  "password": "docker",
-  "database": "postgres",
-  "logging": true,
-  "entities": [
-    "./src/modules/*/infra/data/typeorm/schemas/*.{ts,js}"
-  ],
-  "migrations": [
-    "./src/database/migrations/*.ts"
-  ],
-  "cli": {
-    "migrationsDir": "./src/database/migrations"
+[
+  {
+    "name": "default",
+    "type": "postgres",
+    "host": "rajje.db.elephantsql.com",
+    "port": 5432,
+    "username": "etaogxec",
+    "password": "2Az8ZUbEYvHa6pigsa4Zrt44ftfyswIR",
+    "database": "etaogxec",
+    "logging": true,
+    "entities": [
+      "./src/**/typeorm/schemas/*.{ts,js}"
+    ],
+    "migrations": [
+      "./src/**/migrations/*.ts"
+    ],
+    "cli": {
+      "migrationsDir": "./src/**/migrations"
+    }
   }
-}
+]

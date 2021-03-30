@@ -1,43 +1,41 @@
 import { inject, injectable } from 'tsyringe';
-import AppError from '@shared/errors/AppError';
 
-import User from '@modules/identity/domain/entities/User';
+import ICreateUserService, { 
+  ICreateUserServiceRequest, 
+  ICreateUserServiceResponse 
+} from '@modules/identity/domain/interfaces/services/ICreateUserService';
+
 import IUsersRepository from '@modules/identity/domain/interfaces/repositories/IUsersRepository';
-import IPasswordHashProvider from '../../interfaces/providers/IPasswordHashProvider';
-
-export interface ICreateUserServiceRequest {
-  name: string;
-  email: string;
-  password: string;
-}
+import IPasswordHashProvider from '@modules/identity/domain/interfaces/providers/IPasswordHashProvider';
+import EmailAlreadyExistsException from '../../errors/user/EmailAlreadyExistsException';
 
 @injectable()
-class CreateUserService {
+class CreateUserService implements ICreateUserService {
   constructor(
-    @inject('UsersRepository')
-    private usersRepository: IUsersRepository,
-    @inject('PasswordHashProvider')
-    private passwordHashProvider: IPasswordHashProvider,
-  ) {}
+    @inject('UsersRepository') private _usersRepository: IUsersRepository,
+    @inject('PasswordHashProvider') private _passwordHashProvider: IPasswordHashProvider,
+  ) { }
 
-  public async execute({
-    name,
-    email,
-    password,
-  }: ICreateUserServiceRequest): Promise<User> {
-    const userByEmail = await this.usersRepository.findUserByEmail(email);
+  public async execute(
+    { name, email, password }: ICreateUserServiceRequest
+  ): Promise<ICreateUserServiceResponse> {
+    const userByEmail = await this._usersRepository.findUserByEmail(email);
     if (userByEmail) {
-      throw new AppError('Este email já possui cadastro', 409);
+      throw new EmailAlreadyExistsException('E-mail already exists');
     }
 
-    const hashedPassword = await this.passwordHashProvider.hash(password);
-    const user = await this.usersRepository.create({
+    const hashedPassword = await this._passwordHashProvider.hash(password);
+    const user = await this._usersRepository.create({
       name,
       email,
       password: hashedPassword,
     });
 
-    return user;
+    return {
+      id: user.id, 
+      name: user.name, 
+      email: user.email
+    } as any;
   }
 }
 

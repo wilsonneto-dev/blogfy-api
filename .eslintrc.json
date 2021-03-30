@@ -20,7 +20,7 @@
         "prettier"
     ],
     "rules": {
-      "linebreak-style": 0,
+      "linebreak-style": ["error", "unix"],
       "no-useless-constructor": "off",
       "prettier/prettier": "error",
       "class-methods-use-this": "off",

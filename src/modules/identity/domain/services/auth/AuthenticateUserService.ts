@@ -1,3 +1,4 @@
+/*
 import { compare } from 'bcryptjs';
 import { getRepository } from 'typeorm';
 import { sign } from 'jsonwebtoken';
@@ -44,3 +45,4 @@ class AutenticateUserService {
 }
 
 export default AutenticateUserService;
+*/

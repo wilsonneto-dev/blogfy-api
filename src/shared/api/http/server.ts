@@ -4,9 +4,9 @@ import dotenv from 'dotenv';
 import 'express-async-errors';
 
 import '@shared/infra/data/typeorm';
-import '@shared/app/container';
+import '@shared/api/container';
 
-import errorsHandler from '@shared/app/http/middlewares/errors';
+import errorsHandler from '@shared/api/http/middlewares/errors';
 import config from '@config/http';
 
 import router from './routes';

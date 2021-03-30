@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "ts:build": "tsc",
-    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/app/http/server.ts",
+    "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/api/http/server.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "test": "jest --coverage",
     "test:watch": "npm run test -- --watch"
