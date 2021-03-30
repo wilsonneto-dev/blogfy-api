@@ -67,12 +67,12 @@ export default class CreateAppointments1600772700374
 ```
 
 #### Next Steps
-[ ] configurar debugging
-[ ] refatorar os nomes dos repos e as pastas
-[ ] verificar como fazer o vinculo de user e workspace
-[ ] database with .env
-[ ] unit tests
+- [ ] configurar debugging
+- [ ] refatorar os nomes dos repos e as pastas
+- [ ] verificar como fazer o vinculo de user e workspace
+- [ ] database with .env
+- [ ] unit tests
 
-[ ] refresh token
-[ ] husky precommit and pre push
-[ ] integration tests
+- [ ] refresh token
+- [ ] husky precommit and pre push
+- [ ] integration tests
