@@ -1,4 +1,4 @@
-Boilerplate for MVP node projects
+Node project
 
 With:
 - Eslint Configured
@@ -10,13 +10,14 @@ With:
 - Modules/DDD folders struct
 - Unity Tests with jest + code coverage
 - DI with tsyringe
+- Celebrate for api input validations
 
 ### Running in Dev Enviroment
 Running the app:
 `npm run dev:server`
 
-Running a Postgres container:
-`docker run --name gostack_postgres -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres`
+Running the Postgres in a container:
+`docker run --name my_container_postgres -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres`
 
 ### Migrations
 
@@ -66,9 +67,12 @@ export default class CreateAppointments1600772700374
 ```
 
 #### Next Steps
-+ validações de parametros (joy + celebrate)
-+ refresh token
-+ .env
-+ husky precommit and pre push
-+ integration tests
+[ ] configurar debugging
+[ ] refatorar os nomes dos repos e as pastas
+[ ] verificar como fazer o vinculo de user e workspace
+[ ] database with .env
+[ ] unit tests
 
+[ ] refresh token
+[ ] husky precommit and pre push
+[ ] integration tests
