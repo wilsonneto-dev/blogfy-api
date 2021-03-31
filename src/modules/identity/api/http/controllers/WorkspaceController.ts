@@ -1,4 +1,4 @@
-import WorkspaceAlreadyExistsException from '@modules/identity/domain/errors/WorkspaceAlreadyExistsException';
+import WorkspaceAlreadyExistsException from '@modules/identity/domain/errors/WorkspaceUrlAlreadyExistsException';
 import ICreateWorkspaceService from '@modules/identity/domain/interfaces/services/ICreateWorkspaceService';
 import AppHttpError from '@shared/errors/AppHttpError';
 import HttpStatusCode from '@shared/errors/HttpStatusCodeEnum';

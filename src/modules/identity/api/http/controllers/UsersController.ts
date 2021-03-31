@@ -1,6 +1,6 @@
-import EmailAlreadyExistsException from '@modules/identity/domain/errors/user/EmailAlreadyExistsException';
+import EmailAlreadyExistsException from '@modules/identity/domain/errors/EmailAlreadyExistsException';
 import ICreateUserService from '@modules/identity/domain/interfaces/services/ICreateUserService';
-import CreateUserService from '@modules/identity/domain/services/user/CreateUserService';
+import CreateUserService from '@modules/identity/domain/services/CreateUserService';
 import AppHttpError from '@shared/errors/AppHttpError';
 import HttpStatusCode from '@shared/errors/HttpStatusCodeEnum';
 import { Response, Request } from 'express';

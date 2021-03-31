@@ -22,7 +22,7 @@ Running the Postgres in a container:
 ### Migrations
 
 Running migrations:
-`npm run typeorm migrations:run`
+`npm run typeorm migration:run`
 
 Creating a migration:
 `npm run typeorm -- migration:create --name CreateUsers`

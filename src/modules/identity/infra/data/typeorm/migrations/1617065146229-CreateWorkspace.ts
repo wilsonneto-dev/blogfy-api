@@ -5,7 +5,7 @@ export class CreateWorkspace1617065146229 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
       await queryRunner.createTable(
         new Table({
-          name: 'workspace',
+          name: 'workspaces',
           columns: [
             {
               name: 'id',

@@ -40,6 +40,12 @@ const UserSchema = new EntitySchema<User>({
       default: 'now()',
     },
   },
+  relations: {
+    workspaces: {
+      type: "many-to-many",
+      target: "workspace",
+    }
+  }
 });
 
 export default UserSchema;

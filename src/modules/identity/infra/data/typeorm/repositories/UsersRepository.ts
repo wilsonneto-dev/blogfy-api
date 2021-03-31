@@ -15,14 +15,10 @@ class UsersRepository implements IUsersRepository {
     return user || null;
   }
 
-  public async create({
-    name,
-    email,
-    password,
-  }: Required<Pick<User, 'name' | 'email' | 'password'>>): Promise<User> {
-    const user = this.ormRepository.create({ name, email, password });
-    await this.ormRepository.save(user);
-    return user;
+  public async create(user: User): Promise<User> {
+    const savedUser = this.ormRepository.create(user);
+    await this.ormRepository.save(savedUser);
+    return savedUser;
   }
 }
 

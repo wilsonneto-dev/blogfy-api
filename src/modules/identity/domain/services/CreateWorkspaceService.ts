@@ -1,11 +1,13 @@
 import { inject, injectable } from "tsyringe";
 
-import WorkspaceAlreadyExistsException from "../../errors/WorkspaceAlreadyExistsException";
-import IWorkspaceRepository from "../../interfaces/repositories/IWorkspaceRepository";
+import WorkspaceUrlAlreadyExistsException from 
+  "@modules/identity/domain/errors/WorkspaceUrlAlreadyExistsException";
+import IWorkspaceRepository from 
+  "@modules/identity/domain/interfaces/repositories/IWorkspaceRepository";
 import ICreateWorkspace, 
   { ICreateWorkspaceServiceRequest, 
     ICreateWorkspaceServiceResponse } 
-  from "../../interfaces/services/ICreateWorkspaceService";
+  from "@modules/identity/domain/interfaces/services/ICreateWorkspaceService";
 
 @injectable()
 class CreateWorkspaceService implements ICreateWorkspace {
@@ -19,7 +21,7 @@ class CreateWorkspaceService implements ICreateWorkspace {
     console.log('before: this._workspaceRepository');
     const workspaceWithSameURL = await this._workspaceRepository.findWorkspaceByURL(url);
     if(workspaceWithSameURL)
-      throw new WorkspaceAlreadyExistsException('Workspace already exists');
+      throw new WorkspaceUrlAlreadyExistsException('Workspace already exists');
 
     console.log('after: this._workspaceRepository');
     const createdWorkspace = await this._workspaceRepository.create({ name, url })

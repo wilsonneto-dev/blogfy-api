@@ -17,11 +17,11 @@ class WorkspacesRepository implements IWorkspacesRepository {
   }
 
   public async create(
-    { name, url }: Required<Pick<Workspace, 'name' | 'url'>>
+    workspace: Workspace
   ): Promise<Workspace> {
-    const workspace = this.ormRepository.create({ name, url });
-    await this.ormRepository.save(workspace);
-    return workspace;
+    const savedWorkspace = this.ormRepository.create(workspace);
+    await this.ormRepository.save(savedWorkspace);
+    return savedWorkspace;
   }
 }
 

@@ -27,7 +27,14 @@
       "@typescript-eslint/no-unused-vars": ["error", {
         "argsIgnorePattern": "_"
       }],
-
+      "interface-name-prefix": "error",
+      "@typescript-eslint/naming-convention": [ 
+        "error", { 
+          "selector": "interface", 
+          "prefix": ["I"], 
+          "format": ["PascalCase"] 
+        }
+      ],
       "import/extensions": [
         "error",
         "ignorePackages",

@@ -1,9 +1,14 @@
+import User from "./User";
+
 class Workspace {
-  id: string;
+  id?: string;
   name: string;
   url: string;
-  createdAt: Date;
-  updatetAt: Date;
+
+  users?: Array<User>;
+
+  createdAt?: Date;
+  updatetAt?: Date;
 }
 
 export default Workspace;

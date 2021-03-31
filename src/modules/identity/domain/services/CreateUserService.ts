@@ -7,7 +7,7 @@ import ICreateUserService, {
 
 import IUsersRepository from '@modules/identity/domain/interfaces/repositories/IUsersRepository';
 import IPasswordHashProvider from '@modules/identity/domain/interfaces/providers/IPasswordHashProvider';
-import EmailAlreadyExistsException from '../../errors/user/EmailAlreadyExistsException';
+import EmailAlreadyExistsException from '../errors/EmailAlreadyExistsException';
 
 @injectable()
 class CreateUserService implements ICreateUserService {

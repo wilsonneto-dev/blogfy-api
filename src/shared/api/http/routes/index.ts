@@ -1,11 +1,12 @@
 import { Router } from 'express';
 
 import usersRouter from '@modules/identity/api/http/routes/users.routes';
-import workspacesRouter from '@modules/identity/api/http/routes/workspace.routes';
+import accountsRouter from '@modules/identity/api/http/routes/accounts.route';
 
 const routes = Router();
 
 routes.use('/users', usersRouter);
-routes.use('/workspace', workspacesRouter);
+routes.use('/accounts', accountsRouter);
+
 
 export default routes;

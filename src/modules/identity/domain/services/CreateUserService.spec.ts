@@ -5,7 +5,7 @@ import FakePasswordHashProvider from '@modules/identity/infra/providers/mocks/Fa
 
 import CreateUserService from './CreateUserService';
 import { ICreateUserServiceRequest, ICreateUserServiceResponse } from '../../interfaces/services/ICreateUserService';
-import EmailAlreadyExistsException from '../../errors/user/EmailAlreadyExistsException';
+import EmailAlreadyExistsException from '../errors/EmailAlreadyExistsException';
 
 const fakeCreateUserServiceRequest: ICreateUserServiceRequest = {
 	name: "Wilson Gomes",
