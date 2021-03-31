@@ -5,6 +5,8 @@ const errors = (
   error: Error,
   request: Request,
   response: Response,
+  // eslint-disable-next-line no-unused-vars
+  _: NextFunction,
 ): Response => {
   if (error instanceof AppHttpError) {
     return response.status(error.statusCode).json({

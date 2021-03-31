@@ -5,5 +5,6 @@ export default class AppHttpError {
   }
 
   public readonly message: string;
+
   public readonly statusCode: number;
 }
