@@ -3,7 +3,7 @@ export interface ICreateAccountServiceRequest {
   email: string;
   password: string;
   workspace: string;
-  workspaceURL: string; 
+  workspaceURL: string;
 }
 
 export interface ICreateAccountServiceResponse {
@@ -13,9 +13,11 @@ export interface ICreateAccountServiceResponse {
 
   workspaceId: string;
   workspace: string;
-  workspaceURL: string; 
+  workspaceURL: string;
 }
 
 export default interface ICreateAccountService {
-  execute: (request: ICreateAccountServiceRequest) => Promise<ICreateAccountServiceResponse>
+  execute: (
+    request: ICreateAccountServiceRequest,
+  ) => Promise<ICreateAccountServiceResponse>;
 }

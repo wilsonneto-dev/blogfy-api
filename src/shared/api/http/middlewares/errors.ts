@@ -5,7 +5,6 @@ const errors = (
   error: Error,
   request: Request,
   response: Response,
-  _: NextFunction,
 ): Response => {
   if (error instanceof AppHttpError) {
     return response.status(error.statusCode).json({

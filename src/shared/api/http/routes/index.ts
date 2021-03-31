@@ -8,5 +8,4 @@ const routes = Router();
 routes.use('/users', usersRouter);
 routes.use('/accounts', accountsRouter);
 
-
 export default routes;

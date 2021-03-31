@@ -9,8 +9,8 @@ export interface ICreateWorkspaceServiceResponse {
   url: string;
 }
 
-
 export default interface ICreateWorkspaceService {
-  execute: (request: ICreateWorkspaceServiceRequest) 
-    => Promise<ICreateWorkspaceServiceResponse>
+  execute: (
+    request: ICreateWorkspaceServiceRequest,
+  ) => Promise<ICreateWorkspaceServiceResponse>;
 }
