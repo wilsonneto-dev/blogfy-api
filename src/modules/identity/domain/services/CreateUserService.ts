@@ -1,24 +1,27 @@
 import { inject, injectable } from 'tsyringe';
 
-import ICreateUserService, { 
-  ICreateUserServiceRequest, 
-  ICreateUserServiceResponse 
+import ICreateUserService, {
+  ICreateUserServiceRequest,
+  ICreateUserServiceResponse,
 } from '@modules/identity/domain/interfaces/services/ICreateUserService';
 
 import IUsersRepository from '@modules/identity/domain/interfaces/repositories/IUsersRepository';
-import IPasswordHashProvider from '@modules/identity/domain/interfaces/providers/IPasswordHashProvider';
+import IHashProvider from '@modules/identity/domain/interfaces/providers/IHashProvider';
 import EmailAlreadyExistsException from '../errors/EmailAlreadyExistsException';
 
 @injectable()
 class CreateUserService implements ICreateUserService {
   constructor(
     @inject('UsersRepository') private _usersRepository: IUsersRepository,
-    @inject('PasswordHashProvider') private _passwordHashProvider: IPasswordHashProvider,
-  ) { }
+    @inject('HashProvider')
+    private _passwordHashProvider: IHashProvider,
+  ) {}
 
-  public async execute(
-    { name, email, password }: ICreateUserServiceRequest
-  ): Promise<ICreateUserServiceResponse> {
+  public async execute({
+    name,
+    email,
+    password,
+  }: ICreateUserServiceRequest): Promise<ICreateUserServiceResponse> {
     const userByEmail = await this._usersRepository.findUserByEmail(email);
     if (userByEmail) {
       throw new EmailAlreadyExistsException('E-mail already exists');
@@ -32,9 +35,9 @@ class CreateUserService implements ICreateUserService {
     });
 
     return {
-      id: user.id, 
-      name: user.name, 
-      email: user.email
+      id: user.id,
+      name: user.name,
+      email: user.email,
     } as any;
   }
 }

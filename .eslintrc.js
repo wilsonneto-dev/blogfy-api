@@ -26,6 +26,7 @@ module.exports = {
     "prettier"
   ],
   rules: {
+    "lines-between-class-members": "off",
     "no-underscore-dangle": "off",
     "consistent-return": "off",
     "no-empty-function": [ "error", {

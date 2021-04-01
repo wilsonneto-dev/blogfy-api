@@ -1,17 +1,16 @@
 import IHashProvider from '@modules/identity/domain/interfaces/providers/IHashProvider';
-import { hash, compare } from 'bcryptjs';
 
-class BcryptHashProvider implements IHashProvider {
+class FakePasswordHashProvider implements IHashProvider {
   public async hash(password: string): Promise<string> {
-    return hash(password, 8);
+    return `hash-${password}`;
   }
 
   public async compare(
     plainTextPassword: string,
     hashedPasswordToCompare: string,
   ): Promise<boolean> {
-    return compare(plainTextPassword, hashedPasswordToCompare);
+    return plainTextPassword === `hash-${hashedPasswordToCompare}`;
   }
 }
 
-export default BcryptHashProvider;
+export default FakePasswordHashProvider;

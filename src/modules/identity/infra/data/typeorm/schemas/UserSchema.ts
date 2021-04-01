@@ -42,10 +42,15 @@ const UserSchema = new EntitySchema<User>({
   },
   relations: {
     workspaces: {
-      type: "many-to-many",
-      target: "workspace",
-    }
-  }
+      target: 'workspaces',
+      type: 'many-to-many',
+      joinTable: {
+        name: 'users_workspaces',
+        joinColumns: [{ name: 'userId' }],
+        inverseJoinColumns: [{ name: 'workspaceId' }],
+      },
+    },
+  },
 });
 
 export default UserSchema;

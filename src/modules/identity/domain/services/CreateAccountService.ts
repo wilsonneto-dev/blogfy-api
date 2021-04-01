@@ -10,13 +10,19 @@ import EmailAlreadyExistsException from '@modules/identity/domain/errors/EmailAl
 import WorkspaceUrlAlreadyExistsException from '@modules/identity/domain/errors/WorkspaceUrlAlreadyExistsException';
 import User from '../entities/User';
 import Workspace from '../entities/Workspace';
+import IHashProvider from '../interfaces/providers/IHashProvider';
 
 @injectable()
 class CreateAcoountService implements ICreateAccountService {
   constructor(
-    @inject('UsersRepository') private _usersRepository: IUsersRepository,
+    @inject('UsersRepository')
+    private _usersRepository: IUsersRepository,
+
     @inject('WorkspacesRepository')
     private _workspacesRepository: IWorkspacesRepository,
+
+    @inject('HashProvider')
+    private _hashProvider: IHashProvider,
   ) {}
 
   async execute({
@@ -43,7 +49,8 @@ class CreateAcoountService implements ICreateAccountService {
         'Workspace URL already exists in the database',
       );
 
-    const userToSave = <User>{ name, email, password };
+    const hashedPassword = await this._hashProvider.hash(password);
+    const userToSave = <User>{ name, email, password: hashedPassword };
     const workspaceToSave = <Workspace>{
       name: workspace,
       url: workspaceURL,
@@ -52,6 +59,8 @@ class CreateAcoountService implements ICreateAccountService {
     const savedWorkspace = await this._workspacesRepository.create(
       workspaceToSave,
     );
+
+    userToSave.workspaces = [savedWorkspace];
     const savedUser = await this._usersRepository.create(userToSave);
 
     return {

@@ -1,4 +1,5 @@
-import Workspace from "./Workspace";
+/* eslint-disable import/no-cycle */
+import Workspace from './Workspace';
 
 class User {
   id?: string;
@@ -6,10 +7,10 @@ class User {
   email: string;
   password?: string;
 
-  workspaces: Array<Workspace>
+  workspaces?: Array<Workspace>;
 
-  createdAt: Date;
-  updatetAt: Date;
+  createdAt?: Date;
+  updatetAt?: Date;
 }
 
 export default User;
