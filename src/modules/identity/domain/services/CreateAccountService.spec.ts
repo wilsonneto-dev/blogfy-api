@@ -1,11 +1,11 @@
-/* eslint-disable no-undef */
+import 'reflect-metadata';
+
 import FakeUserRepository from '@modules/identity/infra/data/mocks/repositories/FakeUsersRepository';
 import FakeWorkspaceRepository from '@modules/identity/infra/data/mocks/repositories/FakeWorkspaceRepository';
 import FakePasswordHashProvider from '@modules/identity/infra/providers/mocks/FakeHashProvider';
-import 'reflect-metadata';
-import EmailAlreadyExistsException from '../errors/EmailAlreadyExistsException';
-import WorkspaceUrlAlreadyExistsException from '../errors/WorkspaceUrlAlreadyExistsException';
-import { ICreateAccountServiceRequest } from '../interfaces/services/ICreateAccountService';
+import EmailAlreadyExistsException from '@modules/identity/domain/errors/EmailAlreadyExistsException';
+
+import { ICreateAccountServiceRequest } from '@modules/identity/domain/interfaces/services/ICreateAccountService';
 import CreateAccountService from './CreateAccountService';
 
 const fakeCreateAccountServiceRequest: ICreateAccountServiceRequest = {
@@ -53,13 +53,9 @@ describe('CreateAccountService', () => {
       fakeCreateAccountServiceRequest,
     );
 
-    expect(
+    await expect(
       createAccountService.execute(secondFakeCreateAccountServiceRequest),
-    ).rejects.toThrow(EmailAlreadyExistsException);
-
-    expect(
-      createAccountService.execute(secondFakeCreateAccountServiceRequest),
-    ).rejects.toThrow(WorkspaceUrlAlreadyExistsException);
+    ).rejects.toBeInstanceOf(EmailAlreadyExistsException);
 
     expect(firstResponse.userId).not.toBeFalsy();
     expect(firstResponse.workspaceId).not.toBeFalsy();

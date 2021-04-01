@@ -1,4 +1,5 @@
-import User from "./User";
+/* eslint-disable import/no-cycle */
+import User from './User';
 
 class Workspace {
   id?: string;
