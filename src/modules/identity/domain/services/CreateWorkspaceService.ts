@@ -18,20 +18,18 @@ class CreateWorkspaceService implements ICreateWorkspace {
     name,
     url,
   }: ICreateWorkspaceServiceRequest): Promise<ICreateWorkspaceServiceResponse> {
-    console.log('before: this._workspaceRepository');
     const workspaceWithSameURL = await this._workspaceRepository.findWorkspaceByURL(
       url,
     );
     if (workspaceWithSameURL)
       throw new WorkspaceUrlAlreadyExistsException('Workspace already exists');
 
-    console.log('after: this._workspaceRepository');
     const createdWorkspace = await this._workspaceRepository.create({
       name,
       url,
     });
     return {
-      id: createdWorkspace.id,
+      id: createdWorkspace.id!,
       name: createdWorkspace.name,
       url: createdWorkspace.url,
     };

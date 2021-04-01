@@ -54,4 +54,12 @@ module.exports = {
       }
     ]
   },
+  overrides: [
+    {
+      files: ["*.spec.ts"],
+      rules: {
+        "jest/valid-expect": 0
+      }
+    }
+  ]
 };
