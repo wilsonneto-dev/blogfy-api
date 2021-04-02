@@ -9,7 +9,7 @@ class FakePasswordHashProvider implements IHashProvider {
     plainTextPassword: string,
     hashedPasswordToCompare: string,
   ): Promise<boolean> {
-    return plainTextPassword === `hash-${hashedPasswordToCompare}`;
+    return hashedPasswordToCompare === `hash-${plainTextPassword}`;
   }
 }
 

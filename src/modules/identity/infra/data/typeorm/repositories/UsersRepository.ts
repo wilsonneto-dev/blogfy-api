@@ -11,7 +11,10 @@ class UsersRepository implements IUsersRepository {
   }
 
   async findUserByEmail(email: string): Promise<User | null> {
-    const user = await this.ormRepository.findOne({ email });
+    const user = await this.ormRepository.findOne(
+      { email },
+      { relations: ['workspaces'] },
+    );
     return user || null;
   }
 

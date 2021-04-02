@@ -1,6 +1,9 @@
 interface IHashProvider {
   hash(password: string): Promise<string>;
-  compare(password: string, passwordToCompare: string): Promise<boolean>;
+  compare(
+    plainTextPassword: string,
+    hashedPasswordToCompare: string,
+  ): Promise<boolean>;
 }
 
 export default IHashProvider;
