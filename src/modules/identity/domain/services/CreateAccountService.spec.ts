@@ -7,6 +7,7 @@ import EmailAlreadyExistsException from '@modules/identity/domain/errors/EmailAl
 
 import { ICreateAccountServiceRequest } from '@modules/identity/domain/interfaces/services/ICreateAccountService';
 import CreateAccountService from './CreateAccountService';
+import WorkspaceUrlAlreadyExistsException from '../errors/WorkspaceUrlAlreadyExistsException';
 
 const fakeCreateAccountServiceRequest: ICreateAccountServiceRequest = {
   name: 'User de Teste',
@@ -46,20 +47,45 @@ describe('CreateAccountService', () => {
       new FakeWorkspaceRepository(),
       new FakePasswordHashProvider(),
     );
-    secondFakeCreateAccountServiceRequest.email =
-      fakeCreateAccountServiceRequest.email;
+
+    const secondRequest = <ICreateAccountServiceRequest>{
+      ...secondFakeCreateAccountServiceRequest,
+    };
+    secondRequest.email = fakeCreateAccountServiceRequest.email;
 
     const firstResponse = await createAccountService.execute(
       fakeCreateAccountServiceRequest,
     );
 
     await expect(
-      createAccountService.execute(secondFakeCreateAccountServiceRequest),
+      createAccountService.execute(secondRequest),
     ).rejects.toBeInstanceOf(EmailAlreadyExistsException);
 
     expect(firstResponse.userId).not.toBeFalsy();
     expect(firstResponse.workspaceId).not.toBeFalsy();
   });
 
-  // it('should not create a workspace with duplicated URL', () => {});
+  it('should not create a workspace with duplicated URL', async () => {
+    const createAccountService = new CreateAccountService(
+      new FakeUserRepository(),
+      new FakeWorkspaceRepository(),
+      new FakePasswordHashProvider(),
+    );
+
+    const secondRequest = <ICreateAccountServiceRequest>{
+      ...secondFakeCreateAccountServiceRequest,
+    };
+    secondRequest.workspaceURL = fakeCreateAccountServiceRequest.workspaceURL;
+
+    const firstResponse = await createAccountService.execute(
+      fakeCreateAccountServiceRequest,
+    );
+
+    await expect(
+      createAccountService.execute(secondRequest),
+    ).rejects.toBeInstanceOf(WorkspaceUrlAlreadyExistsException);
+
+    expect(firstResponse.userId).not.toBeFalsy();
+    expect(firstResponse.workspaceId).not.toBeFalsy();
+  });
 });
