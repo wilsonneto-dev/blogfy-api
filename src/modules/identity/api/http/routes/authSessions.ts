@@ -1,24 +1,21 @@
 import { celebrate, Joi, Segments } from 'celebrate';
 import { Router } from 'express';
 
-import AccountsController from '../controllers/AccountsController';
+import AuthSessionsController from '../controllers/AuthSessionsController';
 
 const accountsRouter = Router();
 
-const accountsController = new AccountsController();
+const authSessionsController = new AuthSessionsController();
 
 accountsRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
       email: Joi.string().email().required(),
-      name: Joi.string().required(),
       password: Joi.string().required(),
-      workspace: Joi.string().required(),
-      workspaceURL: Joi.string().required(),
     },
   }),
-  accountsController.create,
+  authSessionsController.create,
 );
 
 export default accountsRouter;

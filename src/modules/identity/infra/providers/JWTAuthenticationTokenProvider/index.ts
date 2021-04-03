@@ -1,4 +1,5 @@
 import { sign } from 'jsonwebtoken';
+import config from '@config/identity';
 
 import User from '@modules/identity/domain/entities/User';
 import IAuthenticationTokenProvider, {
@@ -13,7 +14,9 @@ class JWTAuthenticationTokenProvider implements IAuthenticationTokenProvider {
       workspaceId: workspace.id,
     };
 
-    const token = sign(payload, 'secret-key', { expiresIn: '10m' });
+    const token = sign(payload, config.authTokenKey, {
+      expiresIn: config.authTokenExpiresIn,
+    });
     return token;
   }
 
@@ -23,9 +26,13 @@ class JWTAuthenticationTokenProvider implements IAuthenticationTokenProvider {
       workspaceId: workspace.id,
     };
 
-    const token = sign(payload, `secret-key-referesh-${user.password}`, {
-      expiresIn: '15d',
-    });
+    const token = sign(
+      payload,
+      `${config.authRefreshTokenKey}-${user.password}`,
+      {
+        expiresIn: config.authRefreshTokenExpiresIn,
+      },
+    );
     return token;
   }
 }

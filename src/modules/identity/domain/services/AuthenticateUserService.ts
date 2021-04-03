@@ -14,8 +14,8 @@ import AuthenticationFailedException from '../errors/AuthenticationFailedExcepti
 @injectable()
 class AuthenticateUserService implements IAuthenticateUserService {
   constructor(
-    @inject('UserRepository')
-    private _userRepository: IUsersRepository,
+    @inject('UsersRepository')
+    private _usersRepository: IUsersRepository,
 
     @inject('HashProvider')
     private _hashProvider: IHashProvider,
@@ -30,7 +30,8 @@ class AuthenticateUserService implements IAuthenticateUserService {
   }: IAuthenticateUserServiceRequest): Promise<
     IAuthenticateUserServiceResponse
   > {
-    const user = await this._userRepository.findUserByEmail(email);
+    console.log('AuthenticateUserService');
+    const user = await this._usersRepository.findUserByEmail(email);
     if (user === null)
       throw new AuthenticationFailedException('Invalid credentials');
 

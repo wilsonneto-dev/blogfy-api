@@ -28,7 +28,7 @@ new FakePasswordHashProvider().hash(plainTextPassword).then(hashedPassword => {
 });
 
 describe('AuthenticateUserService', () => {
-  it('should sigin with a user that exists', async () => {
+  it('should signin with a user that exists', async () => {
     const fakeRepository = new FakeUserRepository();
     const savedFakeUser = await fakeRepository.create(fakeUser);
 
@@ -47,7 +47,8 @@ describe('AuthenticateUserService', () => {
     expect(response?.token).toBeTruthy();
     expect(response?.refreshToken).toBeTruthy();
   });
-  it('should not sigin with a user that exists but with wrong password', async () => {
+
+  it('should not signin with a user that exists but with wrong password', async () => {
     const fakeRepository = new FakeUserRepository();
     fakeRepository.create(fakeUser);
 
@@ -64,7 +65,8 @@ describe('AuthenticateUserService', () => {
       }),
     ).rejects.toBeInstanceOf(AuthenticationFailedException);
   });
-  it('should not sigin with a user that not exists', async () => {
+
+  it('should not signin with a user that not exists', async () => {
     const fakeRepository = new FakeUserRepository();
     fakeRepository.create(fakeUser);
 

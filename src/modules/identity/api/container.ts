@@ -14,6 +14,10 @@ import WorkspacesRepository from '../infra/data/typeorm/repositories/WorkspaceRe
 
 import IHashProvider from '../domain/interfaces/providers/IHashProvider';
 import BcryptHashProvider from '../infra/providers/BcryptPasswordHashProvider';
+import IAuthenticateUserService from '../domain/interfaces/services/IAuthenticateUserService';
+import AuthenticateUserService from '../domain/services/AuthenticateUserService';
+import IAuthenticationTokenProvider from '../domain/interfaces/providers/IAuthenticationTokenProvider';
+import JWTAuthenticationTokenProvider from '../infra/providers/JWTAuthenticationTokenProvider';
 
 // services
 container.register<ICreateUserService>('CreateUserService', CreateUserService);
@@ -24,6 +28,10 @@ container.register<ICreateAccountService>(
 container.register<ICreateWorkspaceService>(
   'CreateWorkspaceService',
   CreateWorkspaceService,
+);
+container.register<IAuthenticateUserService>(
+  'AuthenticateUserService',
+  AuthenticateUserService,
 );
 
 // repositories
@@ -38,3 +46,7 @@ container.registerSingleton<IWorkspacesRepository>(
 
 // providers
 container.register<IHashProvider>('HashProvider', BcryptHashProvider);
+container.register<IAuthenticationTokenProvider>(
+  'AuthenticationTokenProvider',
+  JWTAuthenticationTokenProvider,
+);
