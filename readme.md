@@ -1,22 +1,68 @@
-Node project
+<p align="center">
+  <h3 align="center">Blogfy CMS</h3>
 
-With:
-- Eslint Configured
-- Prettier Configured
-- Typescript
-- Dev enviroment
-- VS Code debugger setup
-- TypeORM (+Migrations Setup)
-- Modules/DDD folders struct
-- Unity Tests with jest + code coverage
-- DI with tsyringe
-- Celebrate for api input validations
+  <p align="center">
+    A simple and ready-to-use Blog CMS for people who just want to write articles without worrying about tech stuff!
+    <br />
+  Watch the project development live on twitch: <a href="https://www.twitch.tv/wilsonnetodev" target="_blank">twitch.tv/wilsonnetodev</a>
+    <br />
+  </p>
+</p>
+
+### Using:
+<dl>
+  <dt><strong>TypeORM</strong></dt>
+  <dd>We need a good ORM to deal with persistence stuff</dd>
+  
+  <dt><strong>Clean Architecture</strong></dt>
+  <dd>Using a modular DDD approach with Clean Architecture</dd>
+  
+  <dt><strong>Celebrate and JOI</strong></dt>
+  <dd>Libs for validatint inputs from clients</dd>
+  
+  <dt><strong>Express</strong></dt>
+  <dd>The API framework</dd>
+  
+  <dt><strong>Bcryptjs</strong></dt>
+  <dd>Lib to deal with criptography stuff</dd>
+
+  <dt><strong>jsonwebtoken</strong></dt>
+  <dd>Lib to deal with JWT tokens</dd>
+
+  <dt><strong>Jest</strong></dt>
+  <dd>Using jest for the unity tests</dd>
+  
+  <dt><strong>Tsyringe</strong></dt>
+  <dd>Dependency Injection library</dd>
+  
+  <dt><strong>Supertest</strong></dt>
+  <dd>Using supertest for integrations tests</dd>
+  
+  <dt><strong>Typescript</strong></dt>
+  <dd>For typing the JS</dd>
+  
+  <dt><strong>Eslint</strong> and <strong>Prettier</strong></dt>
+  <dd>Used to guarantee code standards</dd>
+</dl>
+
 
 ### Running in Dev Enviroment
-Running the app:
-`npm run dev:server`
+First of all, you will need to install the dependencies:<br />
+`npm install`
 
-Running the Postgres in a container:
+Running the app:<br />
+`npm run dev`
+
+Running the tests:<br />
+`npm run test`
+
+Running the tests on watch mode:<br />
+`npm run test:watch`
+
+Running the integration tests:<br />
+`npm run test:integration`
+
+Running the Postgres in a container:<br />
 `docker run --name my_container_postgres -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres`
 
 ### Migrations
@@ -66,13 +112,3 @@ export default class CreateAppointments1600772700374
 }
 ```
 
-#### Next Steps
-- [ ] configurar debugging
-- [ ] refatorar os nomes dos repos e as pastas
-- [ ] verificar como fazer o vinculo de user e workspace
-- [ ] database with .env
-- [ ] unit tests
-
-- [ ] refresh token
-- [ ] husky precommit and pre push
-- [ ] integration tests
