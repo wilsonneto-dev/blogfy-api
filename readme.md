@@ -9,6 +9,8 @@
   </p>
 </p>
 
+<hr />
+
 ### Using:
 <dl>
   <dt><strong>TypeORM</strong></dt>
@@ -45,6 +47,8 @@
   <dd>Used to guarantee code standards</dd>
 </dl>
 
+<hr />
+
 
 ### Running in Dev Enviroment
 First of all, you will need to install the dependencies:<br />
@@ -64,6 +68,8 @@ Running the integration tests:<br />
 
 Running the Postgres in a container:<br />
 `docker run --name my_container_postgres -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres`
+
+<hr />
 
 ### Migrations
 
