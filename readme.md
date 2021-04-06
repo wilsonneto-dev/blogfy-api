@@ -120,4 +120,11 @@ export default class CreateAppointments1600772700374
   }
 }
 ```
+<hr />
+
+### Utils:
+
+Generating a secret key:<br />
+`node -e "console.log(require('crypto').randomBytes(256).toString('base64'));"`
+
 
