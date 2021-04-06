@@ -73,10 +73,13 @@ Running the Postgres in a container:<br />
 
 ### Migrations
 
-Running migrations:
+Running migrations:<br />
 `npm run typeorm migration:run`
 
-Creating a migration:
+Reverting migrations:<br />
+`npm run typeorm migration:revert`
+
+Creating a migration:<br />
 `npm run typeorm -- migration:create --name CreateUsers`
 
 Migration example:
