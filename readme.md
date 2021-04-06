@@ -50,7 +50,7 @@
 <hr />
 
 
-### Running in Dev Enviroment
+### Running in Dev Enviroment / Scripts
 First of all, you will need to install the dependencies:<br />
 `npm install`
 
