@@ -1,5 +1,5 @@
 <p align="center">
-  <h3 align="center">Blogfy CMS</h3>
+  <h3 align="center">🚀 Blogfy CMS</h3>
 
   <p align="center">
     A simple and ready-to-use Blog CMS for people who just want to write articles without worrying about tech stuff!
