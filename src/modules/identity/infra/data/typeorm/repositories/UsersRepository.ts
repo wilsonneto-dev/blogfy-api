@@ -10,6 +10,11 @@ class UsersRepository implements IUsersRepository {
     this.ormRepository = getRepository<User>(UserSchema);
   }
 
+  async findById(id: string): Promise<User | null> {
+    const user = await this.ormRepository.findOne(id);
+    return user || null;
+  }
+
   async findUserByEmail(email: string): Promise<User | null> {
     const user = await this.ormRepository.findOne(
       { email },

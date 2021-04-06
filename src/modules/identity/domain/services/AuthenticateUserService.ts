@@ -30,7 +30,6 @@ class AuthenticateUserService implements IAuthenticateUserService {
   }: IAuthenticateUserServiceRequest): Promise<
     IAuthenticateUserServiceResponse
   > {
-    console.log('AuthenticateUserService');
     const user = await this._usersRepository.findUserByEmail(email);
     if (user === null)
       throw new AuthenticationFailedException('Invalid credentials');
