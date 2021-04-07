@@ -18,6 +18,8 @@ import IAuthenticateUserService from '../domain/interfaces/services/IAuthenticat
 import AuthenticateUserService from '../domain/services/AuthenticateUserService';
 import IAuthenticationTokenProvider from '../domain/interfaces/providers/IAuthenticationTokenProvider';
 import JWTAuthenticationTokenProvider from '../infra/providers/JWTAuthenticationTokenProvider';
+import IGetUserInfoService from '../domain/interfaces/services/IGetUserInfoService';
+import GetUserInfoService from '../domain/services/GetUserInfoService';
 
 // services
 container.register<ICreateUserService>('CreateUserService', CreateUserService);
@@ -32,6 +34,10 @@ container.register<ICreateWorkspaceService>(
 container.register<IAuthenticateUserService>(
   'AuthenticateUserService',
   AuthenticateUserService,
+);
+container.register<IGetUserInfoService>(
+  'GetUserInfoService',
+  GetUserInfoService,
 );
 
 // repositories

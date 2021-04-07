@@ -9,6 +9,9 @@ export interface IAuthenticationTokenPayload {
 interface IAuthenticationTokenProvider {
   generate: (user: User, workspace: Workspace) => string;
   generateRefreshToken: (user: User, workspace: Workspace) => string;
+
+  verify: (token: string) => Promise<IAuthenticationTokenPayload>;
+  verifyRefreshToken: (token: string) => Promise<IAuthenticationTokenPayload>;
 }
 
 export default IAuthenticationTokenProvider;

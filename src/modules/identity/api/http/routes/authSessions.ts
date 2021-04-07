@@ -2,6 +2,7 @@ import { celebrate, Joi, Segments } from 'celebrate';
 import { Router } from 'express';
 
 import AuthSessionsController from '../controllers/AuthSessionsController';
+import protectRoute from '../middlewares/protectRoute';
 
 const accountsRouter = Router();
 
@@ -17,5 +18,7 @@ accountsRouter.post(
   }),
   authSessionsController.create,
 );
+
+accountsRouter.get('/', protectRoute, authSessionsController.get);
 
 export default accountsRouter;

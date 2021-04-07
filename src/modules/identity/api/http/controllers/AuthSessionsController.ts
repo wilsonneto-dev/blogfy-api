@@ -1,5 +1,8 @@
 import AuthenticationFailedException from '@modules/identity/domain/errors/AuthenticationFailedException';
+import UserNotFoundException from '@modules/identity/domain/errors/UserNotFoundException';
+import UserWithoutPermissionsException from '@modules/identity/domain/errors/UserWithoutPermissionsException';
 import IAuthenticateUserService from '@modules/identity/domain/interfaces/services/IAuthenticateUserService';
+import IGetUserInfoService from '@modules/identity/domain/interfaces/services/IGetUserInfoService';
 import AppHttpError from '@shared/errors/AppHttpError';
 import HttpStatusCode from '@shared/errors/HttpStatusCodeEnum';
 import { Request, Response } from 'express';
@@ -18,7 +21,6 @@ class AuthSessionsController {
         IAuthenticateUserService
       >('AuthenticateUserService');
 
-      console.log('before service');
       const serviceResponse = await authenticateUserService.execute({
         email,
         password,
@@ -30,6 +32,40 @@ class AuthSessionsController {
         throw new AppHttpError(
           (error as AuthenticationFailedException).message,
           HttpStatusCode.Unauthorized,
+        );
+      }
+    }
+  }
+
+  public async get(
+    request: Request,
+    response: Response,
+  ): Promise<Response | undefined> {
+    try {
+      const { userId, workspaceId } = request.authentication!;
+
+      const getUserInfoService = container.resolve<IGetUserInfoService>(
+        'GetUserInfoService',
+      );
+
+      const serviceResponse = await getUserInfoService.execute({
+        userId,
+        workspaceId,
+      });
+
+      return response.json(serviceResponse);
+    } catch (error) {
+      if (error instanceof UserNotFoundException) {
+        throw new AppHttpError(
+          (error as UserNotFoundException).message,
+          HttpStatusCode.NotFound,
+        );
+      }
+
+      if (error instanceof UserWithoutPermissionsException) {
+        throw new AppHttpError(
+          (error as UserWithoutPermissionsException).message,
+          HttpStatusCode.Forbidden,
         );
       }
     }
