@@ -1,5 +1,5 @@
 <p align="center">
-  <h3 align="center">Blogfy CMS</h3>
+  <h3 align="center">🚀 Blogfy CMS</h3>
 
   <p align="center">
     A simple and ready-to-use Blog CMS for people who just want to write articles without worrying about tech stuff!
@@ -120,4 +120,11 @@ export default class CreateAppointments1600772700374
   }
 }
 ```
+<hr />
+
+### Utils:
+
+Generating a secret key:<br />
+`node -e "console.log(require('crypto').randomBytes(256).toString('base64'));"`
+
 
