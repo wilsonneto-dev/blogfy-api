@@ -2,6 +2,7 @@ import AuthenticationFailedException from '@modules/identity/domain/errors/Authe
 import UserNotFoundException from '@modules/identity/domain/errors/UserNotFoundException';
 import UserWithoutPermissionsException from '@modules/identity/domain/errors/UserWithoutPermissionsException';
 import IAuthenticateUserService from '@modules/identity/domain/interfaces/services/IAuthenticateUserService';
+import IChangeCurrentWorkspaceService from '@modules/identity/domain/interfaces/services/IChangeCurrentWorkspaceService';
 import IGetUserInfoService from '@modules/identity/domain/interfaces/services/IGetUserInfoService';
 import AppHttpError from '@shared/errors/AppHttpError';
 import HttpStatusCode from '@shared/errors/HttpStatusCodeEnum';
@@ -68,6 +69,42 @@ class AuthSessionsController {
           HttpStatusCode.Forbidden,
         );
       }
+    }
+  }
+
+  public async update(
+    request: Request,
+    response: Response,
+  ): Promise<Response | undefined> {
+    try {
+      const changeCurrentWorkspaceService = container.resolve<
+        IChangeCurrentWorkspaceService
+      >('ChangeCurrentWorkspaceService');
+
+      const { workspaceId } = request.body;
+
+      const serviceResponse = await changeCurrentWorkspaceService.execute({
+        userId: request.authentication!.userId,
+        targetWorkspaceId: workspaceId,
+      });
+
+      return response.json(serviceResponse);
+    } catch (error) {
+      if (error instanceof UserNotFoundException) {
+        throw new AppHttpError(
+          (error as UserNotFoundException).message,
+          HttpStatusCode.NotFound,
+        );
+      }
+
+      if (error instanceof UserWithoutPermissionsException) {
+        throw new AppHttpError(
+          (error as UserWithoutPermissionsException).message,
+          HttpStatusCode.Forbidden,
+        );
+      }
+
+      throw error;
     }
   }
 }

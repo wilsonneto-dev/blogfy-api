@@ -9,10 +9,23 @@ const errors = (
   _: NextFunction,
 ): Response => {
   if (error instanceof AppHttpError) {
-    return response.status(error.statusCode).json({
+    const errorPayload: {
+      status: string;
+      message: string;
+      type?: string;
+    } = {
       status: 'error',
       message: error.message,
-    });
+    };
+
+    if (
+      (error as AppHttpError).errorType &&
+      (error as AppHttpError).errorType !== ''
+    ) {
+      errorPayload.type = (error as AppHttpError).errorType;
+    }
+
+    return response.status(error.statusCode).json(errorPayload);
   }
   return response.status(500).json({
     status: 'error',

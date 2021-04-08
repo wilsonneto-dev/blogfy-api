@@ -21,4 +21,15 @@ accountsRouter.post(
 
 accountsRouter.get('/', protectRoute, authSessionsController.get);
 
+accountsRouter.put(
+  '/',
+  protectRoute,
+  celebrate({
+    [Segments.BODY]: {
+      workspaceId: Joi.string().required(),
+    },
+  }),
+  authSessionsController.update,
+);
+
 export default accountsRouter;

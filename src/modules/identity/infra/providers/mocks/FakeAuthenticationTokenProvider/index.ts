@@ -1,8 +1,13 @@
 import User from '@modules/identity/domain/entities/User';
 import Workspace from '@modules/identity/domain/entities/Workspace';
-import IAuthenticationTokenProvider from '@modules/identity/domain/interfaces/providers/IAuthenticationTokenProvider';
+import IAuthenticationTokenProvider, {
+  IAuthenticationTokenPayload,
+} from '@modules/identity/domain/interfaces/providers/IAuthenticationTokenProvider';
 
 class FakeAuthenticationTokenProvider implements IAuthenticationTokenProvider {
+  verify: (token: string) => Promise<IAuthenticationTokenPayload>;
+  verifyRefreshToken: (token: string) => Promise<IAuthenticationTokenPayload>;
+
   generate(user: User, workspace: Workspace): string {
     return `token-${user.id}-${workspace.id}`;
   }

@@ -61,7 +61,7 @@ class JWTAuthenticationTokenProvider implements IAuthenticationTokenProvider {
     };
 
     const token = sign(payload, config.authTokenKey, {
-      expiresIn: /* config.authTokenExpiresIn */ '1m',
+      expiresIn: config.authTokenExpiresIn,
     });
     return token;
   }

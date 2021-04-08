@@ -17,11 +17,7 @@ class GetUserInfoService implements IGetUserInfoService {
     userId,
     workspaceId,
   }: IGetUserInfoServiceRequest): Promise<IGetUserInfoServiceResponse> {
-    console.log('service...');
-
     const user = await this._usersRepository.findById(userId);
-
-    console.log('user...', user);
 
     if (!user) throw new UserNotFoundException('User not found');
 

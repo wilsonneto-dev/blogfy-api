@@ -51,6 +51,7 @@ async function protectRoute(
           (error as AuthenticationSessionExpiredException).message
         }`,
         HttpStatusCode.Unauthorized,
+        'session-expired',
       );
     }
 
