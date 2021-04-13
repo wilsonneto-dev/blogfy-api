@@ -1,9 +1,11 @@
 import AuthenticationFailedException from '@modules/identity/domain/errors/AuthenticationFailedException';
+import InvalidAuthenticationTokenException from '@modules/identity/domain/errors/InvalidAuthenticationTokenException';
 import UserNotFoundException from '@modules/identity/domain/errors/UserNotFoundException';
 import UserWithoutPermissionsException from '@modules/identity/domain/errors/UserWithoutPermissionsException';
 import IAuthenticateUserService from '@modules/identity/domain/interfaces/services/IAuthenticateUserService';
 import IChangeCurrentWorkspaceService from '@modules/identity/domain/interfaces/services/IChangeCurrentWorkspaceService';
 import IGetUserInfoService from '@modules/identity/domain/interfaces/services/IGetUserInfoService';
+import IRefreshTokenService from '@modules/identity/domain/interfaces/services/IRefreshTokenService';
 import AppHttpError from '@shared/errors/AppHttpError';
 import HttpStatusCode from '@shared/errors/HttpStatusCodeEnum';
 import { Request, Response } from 'express';
@@ -101,6 +103,38 @@ class AuthSessionsController {
         throw new AppHttpError(
           (error as UserWithoutPermissionsException).message,
           HttpStatusCode.Forbidden,
+        );
+      }
+
+      throw error;
+    }
+  }
+
+  public async refresh(
+    request: Request,
+    response: Response,
+  ): Promise<Response | undefined> {
+    try {
+      const { refreshToken } = request.body;
+
+      const refreshTokenService = container.resolve<IRefreshTokenService>(
+        'RefreshTokenService',
+      );
+
+      const serviceResponse = await refreshTokenService.execute({
+        refreshToken,
+      });
+
+      return response.json(serviceResponse);
+    } catch (error) {
+      if (
+        error instanceof InvalidAuthenticationTokenException ||
+        error instanceof UserWithoutPermissionsException ||
+        error instanceof UserNotFoundException
+      ) {
+        throw new AppHttpError(
+          (error as InvalidAuthenticationTokenException).message,
+          HttpStatusCode.Unauthorized,
         );
       }
 

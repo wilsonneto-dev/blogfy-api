@@ -32,4 +32,14 @@ accountsRouter.put(
   authSessionsController.update,
 );
 
+accountsRouter.post(
+  '/refresh',
+  celebrate({
+    [Segments.BODY]: {
+      refreshToken: Joi.string().required(),
+    },
+  }),
+  authSessionsController.refresh,
+);
+
 export default accountsRouter;

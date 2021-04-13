@@ -22,6 +22,8 @@ import IGetUserInfoService from '../domain/interfaces/services/IGetUserInfoServi
 import GetUserInfoService from '../domain/services/GetUserInfoService';
 import IChangeCurrentWorkspaceService from '../domain/interfaces/services/IChangeCurrentWorkspaceService';
 import ChangeCurrentWorkspaceService from '../domain/services/ChangeCurrentWorkspaceService';
+import IRefreshTokenService from '../domain/interfaces/services/IRefreshTokenService';
+import RefreshTokenService from '../domain/services/RefreshTokenService';
 
 // services
 container.register<ICreateUserService>('CreateUserService', CreateUserService);
@@ -44,6 +46,10 @@ container.register<IGetUserInfoService>(
 container.register<IChangeCurrentWorkspaceService>(
   'ChangeCurrentWorkspaceService',
   ChangeCurrentWorkspaceService,
+);
+container.register<IRefreshTokenService>(
+  'RefreshTokenService',
+  RefreshTokenService,
 );
 
 // repositories

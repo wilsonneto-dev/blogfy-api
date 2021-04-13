@@ -1,6 +1,6 @@
 import { celebrate, Joi, Segments } from 'celebrate';
 import { Router } from 'express';
-import { container } from 'tsyringe';
+
 import UsersController from '../controllers/UsersController';
 
 const usersRouter = Router();

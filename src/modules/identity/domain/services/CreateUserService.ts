@@ -12,7 +12,9 @@ import EmailAlreadyExistsException from '../errors/EmailAlreadyExistsException';
 @injectable()
 class CreateUserService implements ICreateUserService {
   constructor(
-    @inject('UsersRepository') private _usersRepository: IUsersRepository,
+    @inject('UsersRepository')
+    private _usersRepository: IUsersRepository,
+
     @inject('HashProvider')
     private _passwordHashProvider: IHashProvider,
   ) {}

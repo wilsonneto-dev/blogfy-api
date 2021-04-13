@@ -10,6 +10,7 @@ import IUsersRepository from '@modules/identity/domain/interfaces/repositories/I
 import { container } from 'tsyringe';
 import UserNotFoundException from '@modules/identity/domain/errors/UserNotFoundException';
 import AuthenticationSessionExpiredException from '@modules/identity/domain/errors/AuthenticationSessionExpiredException';
+import InvalidAuthenticationTokenException from '@modules/identity/domain/errors/InvalidAuthenticationTokenException';
 
 class JWTAuthenticationTokenProvider implements IAuthenticationTokenProvider {
   async verify(token: string): Promise<IAuthenticationTokenPayload> {
@@ -36,6 +37,9 @@ class JWTAuthenticationTokenProvider implements IAuthenticationTokenProvider {
       token,
     ) as IAuthenticationTokenPayload;
 
+    if (!tokenPayloadWithoutValidations)
+      throw new InvalidAuthenticationTokenException();
+
     const usersRepository: IUsersRepository = container.resolve<
       IUsersRepository
     >('UsersRepository');
@@ -46,12 +50,16 @@ class JWTAuthenticationTokenProvider implements IAuthenticationTokenProvider {
 
     if (!user) throw new UserNotFoundException('User not found');
 
-    const tokenPayload = verify(
-      token,
-      `${config.authRefreshTokenKey}-${user.password}`,
-    ) as IAuthenticationTokenPayload;
+    try {
+      const tokenPayload = verify(
+        token,
+        `${config.authRefreshTokenKey}-${user.password}`,
+      ) as IAuthenticationTokenPayload;
 
-    return tokenPayload;
+      return tokenPayload;
+    } catch (error) {
+      throw new InvalidAuthenticationTokenException();
+    }
   }
 
   generate(user: User, workspace: Workspace): string {
