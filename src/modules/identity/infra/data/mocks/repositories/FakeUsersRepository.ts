@@ -13,6 +13,17 @@ class FakeUserRepository implements IUsersRepository {
     return newUser;
   }
 
+  async update(user: User): Promise<User> {
+    const userInMemoryIndex = this.base.findIndex(
+      _user => _user.id === user.id,
+    );
+
+    if (userInMemoryIndex === -1) this.base.push(user);
+    else this.base[userInMemoryIndex] = user;
+
+    return this.base[userInMemoryIndex];
+  }
+
   async findUserByEmail(email: string): Promise<User | null> {
     return this.base.find(user => user.email === email) || null;
   }

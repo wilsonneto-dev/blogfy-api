@@ -24,9 +24,10 @@ import IChangeCurrentWorkspaceService from '../domain/interfaces/services/IChang
 import ChangeCurrentWorkspaceService from '../domain/services/ChangeCurrentWorkspaceService';
 import IRefreshTokenService from '../domain/interfaces/services/IRefreshTokenService';
 import RefreshTokenService from '../domain/services/RefreshTokenService';
+import IUpdateUserService from '../domain/interfaces/services/IUpdateUserService';
+import UpdateUserService from '../domain/services/UpdateUserService';
 
 // services
-container.register<ICreateUserService>('CreateUserService', CreateUserService);
 container.register<ICreateAccountService>(
   'CreateAccountService',
   CreateAccountService,
@@ -51,6 +52,7 @@ container.register<IRefreshTokenService>(
   'RefreshTokenService',
   RefreshTokenService,
 );
+container.register<IUpdateUserService>('UpdateUserService', UpdateUserService);
 
 // repositories
 container.registerSingleton<IUsersRepository>(
