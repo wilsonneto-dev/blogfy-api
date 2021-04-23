@@ -1,7 +1,5 @@
 import { container } from 'tsyringe';
 
-import ICreateUserService from '../domain/interfaces/services/ICreateUserService';
-import CreateUserService from '../domain/services/CreateUserService';
 import ICreateWorkspaceService from '../domain/interfaces/services/ICreateWorkspaceService';
 import CreateWorkspaceService from '../domain/services/CreateWorkspaceService';
 import ICreateAccountService from '../domain/interfaces/services/ICreateAccountService';
@@ -26,6 +24,8 @@ import IRefreshTokenService from '../domain/interfaces/services/IRefreshTokenSer
 import RefreshTokenService from '../domain/services/RefreshTokenService';
 import IUpdateUserService from '../domain/interfaces/services/IUpdateUserService';
 import UpdateUserService from '../domain/services/UpdateUserService';
+import IUpdateWorkspaceService from '../domain/interfaces/services/IUpdateWorkspaceService';
+import UpdateWorkspaceService from '../domain/services/UpdateWorkspaceService';
 
 // services
 container.register<ICreateAccountService>(
@@ -53,6 +53,10 @@ container.register<IRefreshTokenService>(
   RefreshTokenService,
 );
 container.register<IUpdateUserService>('UpdateUserService', UpdateUserService);
+container.register<IUpdateWorkspaceService>(
+  'UpdateWorkspaceService',
+  UpdateWorkspaceService,
+);
 
 // repositories
 container.registerSingleton<IUsersRepository>(

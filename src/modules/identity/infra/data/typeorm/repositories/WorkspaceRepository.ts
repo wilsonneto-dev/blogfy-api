@@ -21,6 +21,11 @@ class WorkspacesRepository implements IWorkspacesRepository {
     await this.ormRepository.save(savedWorkspace);
     return savedWorkspace;
   }
+
+  async update(workspace: Workspace): Promise<Workspace> {
+    const savedWorkspace = await this.ormRepository.save(workspace);
+    return savedWorkspace;
+  }
 }
 
 export default WorkspacesRepository;
