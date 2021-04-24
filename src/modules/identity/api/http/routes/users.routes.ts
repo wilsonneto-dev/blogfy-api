@@ -20,4 +20,16 @@ usersRouter.put(
   usersController.update,
 );
 
+usersRouter.put(
+  '/password',
+  protectRoute,
+  celebrate({
+    [Segments.BODY]: {
+      newPassword: Joi.string().min(6).required(),
+      currentPassword: Joi.string().required(),
+    },
+  }),
+  usersController.updatePassword,
+);
+
 export default usersRouter;

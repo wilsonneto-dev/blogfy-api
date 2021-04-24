@@ -26,6 +26,8 @@ import IUpdateUserService from '../domain/interfaces/services/IUpdateUserService
 import UpdateUserService from '../domain/services/UpdateUserService';
 import IUpdateWorkspaceService from '../domain/interfaces/services/IUpdateWorkspaceService';
 import UpdateWorkspaceService from '../domain/services/UpdateWorkspaceService';
+import IUpdatePasswordService from '../domain/interfaces/services/IUpdatePasswordService';
+import UpdatePasswordService from '../domain/services/UpdatePasswordService';
 
 // services
 container.register<ICreateAccountService>(
@@ -56,6 +58,10 @@ container.register<IUpdateUserService>('UpdateUserService', UpdateUserService);
 container.register<IUpdateWorkspaceService>(
   'UpdateWorkspaceService',
   UpdateWorkspaceService,
+);
+container.register<IUpdatePasswordService>(
+  'UpdatePasswordService',
+  UpdatePasswordService,
 );
 
 // repositories
