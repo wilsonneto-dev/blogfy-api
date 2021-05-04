@@ -1,6 +1,8 @@
 import 'reflect-metadata';
 import FakeUserRepository from '@modules/identity/infra/data/mocks/repositories/FakeUsersRepository';
 import FakeRandomTokenProvider from '@modules/identity/infra/providers/mocks/FakeRandomTokenProvider';
+import FakeRecoveryPasswordTokenRepository from '@modules/identity/infra/data/mocks/repositories/FakeRecoveryPasswordTokenRepository';
+import FakeTransactionalEmailProvider from '@modules/identity/infra/providers/mocks/FakeTransactionalEmailProvider';
 import User from '../entities/User';
 import Workspace from '../entities/Workspace';
 import UserNotFoundException from '../errors/UserNotFoundException';
@@ -33,6 +35,8 @@ describe('RecoveryPasswordService', () => {
     recoveryPasswordService = new RecoveryPasswordService(
       fakeUsersRepository,
       new FakeRandomTokenProvider(),
+      new FakeRecoveryPasswordTokenRepository(),
+      new FakeTransactionalEmailProvider(),
     );
   });
 

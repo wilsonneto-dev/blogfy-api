@@ -1,6 +1,8 @@
 import { inject, injectable } from 'tsyringe';
 import UserNotFoundException from '../errors/UserNotFoundException';
 import IRandomTokenProvider from '../interfaces/providers/IRandomTokenProvider';
+import ITransactionalEmailProvider from '../interfaces/providers/ITransactionalEmailProvider';
+import IRecoveryPasswordTokenRepository from '../interfaces/repositories/IRecoveryPasswordTokenRepository';
 import IUsersRepository from '../interfaces/repositories/IUsersRepository';
 import IRecoveryPasswordService, {
   IRecoveryPasswordServiceRequest,
@@ -13,8 +15,14 @@ class RecoveryPasswordService implements IRecoveryPasswordService {
     @inject('UsersRepository')
     private _usersRepository: IUsersRepository,
 
-    @inject('RandomTokenService')
+    @inject('RandomTokenProvider')
     private _randomTokenService: IRandomTokenProvider,
+
+    @inject('RecoveryPasswordTokenRepository')
+    private _recoveryPasswordTokenRepository: IRecoveryPasswordTokenRepository,
+
+    @inject('TransactionalEmailProvider')
+    private _transactionalEmailProvider: ITransactionalEmailProvider,
   ) {}
 
   async execute({
@@ -27,10 +35,21 @@ class RecoveryPasswordService implements IRecoveryPasswordService {
 
     const token = await this._randomTokenService.generate();
 
-    // gravar no banco de dados - Repositório do Token + tabelas/migrations
-    // enviar por email - TransactionalEmailProvider
+    this._recoveryPasswordTokenRepository.create({ token, userId: user.id! });
 
-    return {} as IRecoveryPasswordServiceResponse;
+    // enviar por email - TransactionalEmailProvider
+    const {
+      deliveryEmailStatus,
+    } = await this._transactionalEmailProvider.sendRecoveryPasswordEmail({
+      userName: user.name,
+      userEmail: user.email,
+      linkToRecoveryPassword: `https://appdomain.com/password/recovery?token=${token}`,
+    });
+
+    return {
+      emailStatus: deliveryEmailStatus,
+      success: true,
+    } as IRecoveryPasswordServiceResponse;
   }
 }
 
