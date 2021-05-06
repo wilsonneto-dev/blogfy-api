@@ -69,6 +69,7 @@ container.registerSingleton<IUsersRepository>(
   'UsersRepository',
   UsersRepository,
 );
+
 container.registerSingleton<IWorkspacesRepository>(
   'WorkspacesRepository',
   WorkspacesRepository,

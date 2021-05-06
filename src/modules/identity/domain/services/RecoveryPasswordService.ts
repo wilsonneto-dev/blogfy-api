@@ -35,7 +35,11 @@ class RecoveryPasswordService implements IRecoveryPasswordService {
 
     const token = await this._randomTokenService.generate();
 
-    this._recoveryPasswordTokenRepository.create({ token, userId: user.id! });
+    this._recoveryPasswordTokenRepository.create({
+      token,
+      userId: user.id!,
+      date: new Date(),
+    });
 
     // enviar por email - TransactionalEmailProvider
     const {

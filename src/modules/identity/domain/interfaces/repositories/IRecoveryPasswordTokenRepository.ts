@@ -1,6 +1,7 @@
 export interface IRecoveryPasswordTokenDTO {
   userId: string;
   token: string;
+  date: Date;
 }
 
 interface IRecoveryPasswordTokenRepository {
