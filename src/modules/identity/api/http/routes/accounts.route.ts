@@ -13,7 +13,7 @@ accountsRouter.post(
     [Segments.BODY]: {
       email: Joi.string().email().required(),
       name: Joi.string().required(),
-      password: Joi.string().required(),
+      password: Joi.string().min(6).required(),
       workspace: Joi.string().required(),
       workspaceURL: Joi.string().required(),
     },
