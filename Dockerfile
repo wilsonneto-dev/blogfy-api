@@ -5,8 +5,9 @@ WORKDIR /usr/src/app
 COPY ./dist ./
 COPY ./package.json ./
 COPY ./package-lock.json ./
-COPY ./ormconfig.json ./
+COPY ./tsconfig.json ./
 
 RUN npm install --production
 
-CMD ["node", "./server.js"]
+# node -r tsconfig-paths/register .\src\shared\api\http\server.js
+CMD ["node", "-r", "tsconfig-paths/register", "./src/shared/api/http/server.js"]
