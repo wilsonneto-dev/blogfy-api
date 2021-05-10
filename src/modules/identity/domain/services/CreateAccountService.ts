@@ -32,6 +32,7 @@ class CreateAcoountService implements ICreateAccountService {
     workspaceURL,
     workspace,
   }: ICreateAccountServiceRequest): Promise<ICreateAccountServiceResponse> {
+    console.log('this._usersRepository.findUserByEmail...');
     const userWithSameEmail = await this._usersRepository.findUserByEmail(
       email,
     );
@@ -41,6 +42,7 @@ class CreateAcoountService implements ICreateAccountService {
         'Email already exists in the database',
       );
 
+    console.log('this._workspacesRepository.findWorkspaceByURL...');
     const workspaceWithSameURL = await this._workspacesRepository.findWorkspaceByURL(
       workspaceURL,
     );

@@ -7,9 +7,6 @@ class Workspace {
   url: string;
 
   users?: Array<User>;
-
-  createdAt?: Date;
-  updatetAt?: Date;
 }
 
 export default Workspace;

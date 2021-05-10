@@ -2,9 +2,10 @@ import express from 'express';
 import { errors as celebrateErrors } from 'celebrate';
 import dotenv from 'dotenv';
 import 'express-async-errors';
-
-import '@shared/infra/data/typeorm';
 import '@shared/api/container';
+
+// import '@shared/infra/data/typeorm';
+import '@shared/infra/data/mongoose';
 
 import errorsHandler from '@shared/api/http/middlewares/errors';
 import config from '@config/http';

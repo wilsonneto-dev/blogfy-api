@@ -8,9 +8,6 @@ class User {
   password?: string;
 
   workspaces?: Array<Workspace>;
-
-  createdAt?: Date;
-  updatetAt?: Date;
 }
 
 export default User;

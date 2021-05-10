@@ -2,7 +2,12 @@ import { EntitySchema } from 'typeorm';
 
 import User from '@modules/identity/domain/entities/User';
 
-const UserSchema = new EntitySchema<User>({
+const UserSchema = new EntitySchema<
+  User & {
+    createdAt?: Date;
+    updatetAt?: Date;
+  }
+>({
   name: 'users',
   columns: {
     id: {

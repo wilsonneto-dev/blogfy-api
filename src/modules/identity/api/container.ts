@@ -6,9 +6,10 @@ import ICreateAccountService from '../domain/interfaces/services/ICreateAccountS
 import CreateAccountService from '../domain/services/CreateAccountService';
 
 import IUsersRepository from '../domain/interfaces/repositories/IUsersRepository';
-import UsersRepository from '../infra/data/typeorm/repositories/UsersRepository';
+import UsersRepository from '../infra/data/mongoose/repositories/UsersRepository';
+
 import IWorkspacesRepository from '../domain/interfaces/repositories/IWorkspaceRepository';
-import WorkspacesRepository from '../infra/data/typeorm/repositories/WorkspaceRepository';
+import WorkspacesRepository from '../infra/data/mongoose/repositories/WorkspacesRepository';
 
 import IHashProvider from '../domain/interfaces/providers/IHashProvider';
 import BcryptHashProvider from '../infra/providers/BcryptPasswordHashProvider';

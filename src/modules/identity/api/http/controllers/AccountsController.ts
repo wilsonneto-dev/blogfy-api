@@ -39,6 +39,8 @@ class AccountsController {
           HttpStatusCode.Conflict,
         );
       }
+
+      throw error;
     }
   }
 }

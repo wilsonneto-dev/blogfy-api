@@ -2,7 +2,12 @@ import { EntitySchema } from 'typeorm';
 
 import Workspace from '@modules/identity/domain/entities/Workspace';
 
-const WorkspaceSchema = new EntitySchema<Workspace>({
+const WorkspaceSchema = new EntitySchema<
+  Workspace & {
+    createdAt?: Date;
+    updatetAt?: Date;
+  }
+>({
   name: 'workspaces',
   columns: {
     id: {
