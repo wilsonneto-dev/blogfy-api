@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+
 import express from 'express';
 import { errors as celebrateErrors } from 'celebrate';
 import dotenv from 'dotenv';

@@ -1,3 +1,8 @@
 import { createConnection } from 'typeorm';
 
-createConnection();
+try {
+  console.log('connecting mongo db...');
+  createConnection();
+} catch (ex) {
+  console.log(ex);
+}
