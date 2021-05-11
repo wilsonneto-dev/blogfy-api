@@ -73,16 +73,16 @@ Running the Postgres in a container:<br />
 
 ### Migrations
 
-Running migrations:<br />
+Running a TypeORM migrations:<br />
 `npm run typeorm migration:run`
 
-Reverting migrations:<br />
+Reverting a TypeORM migrations:<br />
 `npm run typeorm migration:revert`
 
-Creating a migration:<br />
-`npm run typeorm -- migration:create --name CreateUsers`
+Creating a TypeORM migration:<br />
+`npm run typeorm -- migration:create --name CreateUsers --dir ./src/modules/identity/infra/data/typeorm/migrations`
 
-Migration example:
+TypeORM Migration example:
 ```
 /* eslint-disable class-methods-use-this */
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
