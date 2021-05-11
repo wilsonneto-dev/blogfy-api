@@ -1,4 +1,4 @@
-import { inject } from 'tsyringe';
+import { inject, injectable } from 'tsyringe';
 import InvalidRecoveryPasswordTokenException from '../errors/InvalidRecoveryPasswordTokenException';
 import IRecoveryPasswordTokenRepository from '../interfaces/repositories/IRecoveryPasswordTokenRepository';
 import IUsersRepository from '../interfaces/repositories/IUsersRepository';
@@ -7,6 +7,7 @@ import ICheckRecoveryPasswordTokenService, {
   ICheckRecoveryPasswordTokenServiceResponse,
 } from '../interfaces/services/ICheckRecoveryPasswordTokenService';
 
+@injectable()
 class CheckRecoveryPasswordTokenService
   implements ICheckRecoveryPasswordTokenService {
   constructor(

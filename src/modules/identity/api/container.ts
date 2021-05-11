@@ -28,40 +28,68 @@ import IUpdateWorkspaceService from '../domain/interfaces/services/IUpdateWorksp
 import UpdateWorkspaceService from '../domain/services/UpdateWorkspaceService';
 import IUpdatePasswordService from '../domain/interfaces/services/IUpdatePasswordService';
 import UpdatePasswordService from '../domain/services/UpdatePasswordService';
+import IRandomTokenProvider from '../domain/interfaces/providers/IRandomTokenProvider';
+import UuidRandomTokenProvider from '../infra/providers/UuidRandomTokenProvider';
+import FakeTransactionalEmailProvider from '../infra/providers/mocks/FakeTransactionalEmailProvider';
+import ITransactionalEmailProvider from '../domain/interfaces/providers/ITransactionalEmailProvider';
+import RecoveryPasswordTokensRepository from '../infra/data/typeorm/repositories/RecoveryPasswordTokensRepository';
+import IRecoveryPasswordTokensRepository from '../domain/interfaces/repositories/IRecoveryPasswordTokenRepository';
+import IRecoveryPasswordService from '../domain/interfaces/services/IRecoveryPasswordService';
+import RecoveryPasswordService from '../domain/services/RecoveryPasswordService';
+import ICheckRecoveryPasswordTokenService from '../domain/interfaces/services/ICheckRecoveryPasswordTokenService';
+import CheckRecoveryPasswordTokenService from '../domain/services/CheckRecoveryPasswordTokenService';
 
 // services
 container.register<ICreateAccountService>(
   'CreateAccountService',
   CreateAccountService,
 );
+
 container.register<ICreateWorkspaceService>(
   'CreateWorkspaceService',
   CreateWorkspaceService,
 );
+
 container.register<IAuthenticateUserService>(
   'AuthenticateUserService',
   AuthenticateUserService,
 );
+
 container.register<IGetUserInfoService>(
   'GetUserInfoService',
   GetUserInfoService,
 );
+
 container.register<IChangeCurrentWorkspaceService>(
   'ChangeCurrentWorkspaceService',
   ChangeCurrentWorkspaceService,
 );
+
 container.register<IRefreshTokenService>(
   'RefreshTokenService',
   RefreshTokenService,
 );
+
 container.register<IUpdateUserService>('UpdateUserService', UpdateUserService);
+
 container.register<IUpdateWorkspaceService>(
   'UpdateWorkspaceService',
   UpdateWorkspaceService,
 );
+
 container.register<IUpdatePasswordService>(
   'UpdatePasswordService',
   UpdatePasswordService,
+);
+
+container.register<IRecoveryPasswordService>(
+  'RecoveryPasswordService',
+  RecoveryPasswordService,
+);
+
+container.register<ICheckRecoveryPasswordTokenService>(
+  'CheckRecoveryPasswordTokenService',
+  CheckRecoveryPasswordTokenService,
 );
 
 // repositories
@@ -75,9 +103,24 @@ container.registerSingleton<IWorkspacesRepository>(
   WorkspacesRepository,
 );
 
+container.registerSingleton<IRecoveryPasswordTokensRepository>(
+  'RecoveryPasswordTokenRepository',
+  RecoveryPasswordTokensRepository,
+);
+
 // providers
 container.register<IHashProvider>('HashProvider', BcryptHashProvider);
+
 container.register<IAuthenticationTokenProvider>(
   'AuthenticationTokenProvider',
   JWTAuthenticationTokenProvider,
+);
+
+container.register<IRandomTokenProvider>(
+  'RandomTokenProvider',
+  UuidRandomTokenProvider,
+);
+container.register<ITransactionalEmailProvider>(
+  'TransactionalEmailProvider',
+  FakeTransactionalEmailProvider,
 );

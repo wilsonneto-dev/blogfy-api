@@ -1,9 +1,9 @@
-import IRecoveryPasswordTokenRepository, {
+import IRecoveryPasswordTokensRepository, {
   IRecoveryPasswordTokenDTO,
 } from '@modules/identity/domain/interfaces/repositories/IRecoveryPasswordTokenRepository';
 
-class FakeRecoveryPasswordTokenRepository
-  implements IRecoveryPasswordTokenRepository {
+class FakeRecoveryPasswordTokensRepository
+  implements IRecoveryPasswordTokensRepository {
   private _base: Array<IRecoveryPasswordTokenDTO> = [];
 
   async create(dto: IRecoveryPasswordTokenDTO): Promise<void> {
@@ -22,4 +22,4 @@ class FakeRecoveryPasswordTokenRepository
   }
 }
 
-export default FakeRecoveryPasswordTokenRepository;
+export default FakeRecoveryPasswordTokensRepository;

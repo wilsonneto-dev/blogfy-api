@@ -4,11 +4,11 @@ import { Router } from 'express';
 import AuthSessionsController from '../controllers/AuthSessionsController';
 import protectRoute from '../middlewares/protectRoute';
 
-const accountsRouter = Router();
+const authSessionRouter = Router();
 
 const authSessionsController = new AuthSessionsController();
 
-accountsRouter.post(
+authSessionRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
@@ -19,9 +19,9 @@ accountsRouter.post(
   authSessionsController.create,
 );
 
-accountsRouter.get('/', protectRoute, authSessionsController.get);
+authSessionRouter.get('/', protectRoute, authSessionsController.get);
 
-accountsRouter.put(
+authSessionRouter.put(
   '/',
   protectRoute,
   celebrate({
@@ -32,7 +32,7 @@ accountsRouter.put(
   authSessionsController.update,
 );
 
-accountsRouter.post(
+authSessionRouter.post(
   '/refresh',
   celebrate({
     [Segments.BODY]: {
@@ -42,4 +42,4 @@ accountsRouter.post(
   authSessionsController.refresh,
 );
 
-export default accountsRouter;
+export default authSessionRouter;

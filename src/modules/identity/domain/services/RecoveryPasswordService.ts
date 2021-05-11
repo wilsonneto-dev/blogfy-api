@@ -47,7 +47,7 @@ class RecoveryPasswordService implements IRecoveryPasswordService {
     } = await this._transactionalEmailProvider.sendRecoveryPasswordEmail({
       userName: user.name,
       userEmail: user.email,
-      linkToRecoveryPassword: `https://appdomain.com/password/recovery?token=${token}`,
+      linkToRecoveryPassword: `https://appdomain.com/password/recovery?token=${token}&email=${user.email}`,
     });
 
     return {
