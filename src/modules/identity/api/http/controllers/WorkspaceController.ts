@@ -1,7 +1,6 @@
 import UserNotFoundException from '@modules/identity/domain/errors/UserNotFoundException';
 import UserWithoutPermissionsException from '@modules/identity/domain/errors/UserWithoutPermissionsException';
 import WorkspaceUrlAlreadyExistsException from '@modules/identity/domain/errors/WorkspaceUrlAlreadyExistsException';
-import WorkspaceAlreadyExistsException from '@modules/identity/domain/errors/WorkspaceUrlAlreadyExistsException';
 import ICreateWorkspaceService from '@modules/identity/domain/interfaces/services/ICreateWorkspaceService';
 import IUpdateWorkspaceService from '@modules/identity/domain/interfaces/services/IUpdateWorkspaceService';
 import AppHttpError from '@shared/errors/AppHttpError';
@@ -32,9 +31,9 @@ class WorkspaceController {
         url: createWorkspaceResponse.url,
       });
     } catch (error) {
-      if (error instanceof WorkspaceAlreadyExistsException)
+      if (error instanceof WorkspaceUrlAlreadyExistsException)
         throw new AppHttpError(
-          (error as WorkspaceAlreadyExistsException).message,
+          (error as WorkspaceUrlAlreadyExistsException).message,
           HttpStatusCode.Conflict,
         );
     }

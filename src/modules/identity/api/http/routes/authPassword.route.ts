@@ -27,4 +27,16 @@ authPasswordRouter.get(
   authPasswordController.checkRecoveryPasswordToken,
 );
 
+authPasswordRouter.post(
+  '/password',
+  celebrate({
+    [Segments.BODY]: {
+      email: Joi.string().email().required(),
+      token: Joi.string().required(),
+      newPassword: Joi.string().required(),
+    },
+  }),
+  authPasswordController.recoveryPasswordNewPassword,
+);
+
 export default authPasswordRouter;

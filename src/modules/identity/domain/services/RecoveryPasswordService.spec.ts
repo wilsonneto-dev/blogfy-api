@@ -26,16 +26,18 @@ const fakeUser = <User>{
 
 let fakeUsersRepository: IUsersRepository;
 let recoveryPasswordService: IRecoveryPasswordService;
+let fakeRecoveryPasswordTokenRepository: FakeRecoveryPasswordTokenRepository;
 
 describe('RecoveryPasswordService', () => {
   beforeEach(async () => {
     fakeUsersRepository = new FakeUserRepository();
+    fakeRecoveryPasswordTokenRepository = new FakeRecoveryPasswordTokenRepository();
     await fakeUsersRepository.create(fakeUser);
 
     recoveryPasswordService = new RecoveryPasswordService(
       fakeUsersRepository,
       new FakeRandomTokenProvider(),
-      new FakeRecoveryPasswordTokenRepository(),
+      fakeRecoveryPasswordTokenRepository,
       new FakeTransactionalEmailProvider(),
     );
   });
@@ -52,5 +54,20 @@ describe('RecoveryPasswordService', () => {
     });
     expect(serviceResponse.success).toEqual(true);
     expect(serviceResponse.emailStatus).toBeTruthy();
+  });
+
+  it('should exclude past tokens for this user', async () => {
+    await recoveryPasswordService.execute({
+      email: fakeUser.email,
+    });
+
+    const fakeFunction = jest.fn();
+    fakeRecoveryPasswordTokenRepository.deleteByUserId = fakeFunction;
+
+    await recoveryPasswordService.execute({
+      email: fakeUser.email,
+    });
+
+    expect(fakeRecoveryPasswordTokenRepository.deleteByUserId).toBeCalled();
   });
 });

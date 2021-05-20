@@ -7,6 +7,7 @@ import IRecoveryPasswordService from '@modules/identity/domain/interfaces/servic
 import UserNotFoundException from '@modules/identity/domain/errors/UserNotFoundException';
 import ICheckRecoveryPasswordTokenService from '@modules/identity/domain/interfaces/services/ICheckRecoveryPasswordTokenService';
 import InvalidRecoveryPasswordTokenException from '@modules/identity/domain/errors/InvalidRecoveryPasswordTokenException';
+import IRecoveryPasswordChangeService from '@modules/identity/domain/interfaces/services/IRecoveryPasswordChangeService';
 
 @injectable()
 class AuthPasswordController {
@@ -43,7 +44,10 @@ class AuthPasswordController {
     response: Response,
   ): Promise<Response | undefined> {
     try {
-      const { email, token } = request.query;
+      const { email, token } = request.query as {
+        email: string;
+        token: string;
+      };
 
       const checkRecoveryPasswordTokenService = container.resolve<
         ICheckRecoveryPasswordTokenService
@@ -63,6 +67,40 @@ class AuthPasswordController {
         );
       }
 
+      if (error instanceof InvalidRecoveryPasswordTokenException) {
+        throw new AppHttpError(
+          (error as InvalidRecoveryPasswordTokenException).message,
+          HttpStatusCode.Unauthorized,
+        );
+      }
+
+      throw error;
+    }
+  }
+
+  public async recoveryPasswordNewPassword(
+    request: Request,
+    response: Response,
+  ): Promise<Response | undefined> {
+    try {
+      const { email, token, newPassword } = request.body as {
+        email: string;
+        token: string;
+        newPassword: string;
+      };
+
+      const recoveryPasswordChangeService = container.resolve<
+        IRecoveryPasswordChangeService
+      >('RecoveryPasswordChangeService');
+
+      const serviceResponse = await recoveryPasswordChangeService.execute({
+        email,
+        token,
+        newPassword,
+      });
+
+      return response.json(serviceResponse);
+    } catch (error) {
       if (error instanceof InvalidRecoveryPasswordTokenException) {
         throw new AppHttpError(
           (error as InvalidRecoveryPasswordTokenException).message,

@@ -18,7 +18,7 @@ class RecoveryPasswordService implements IRecoveryPasswordService {
     @inject('RandomTokenProvider')
     private _randomTokenService: IRandomTokenProvider,
 
-    @inject('RecoveryPasswordTokenRepository')
+    @inject('RecoveryPasswordTokensRepository')
     private _recoveryPasswordTokenRepository: IRecoveryPasswordTokenRepository,
 
     @inject('TransactionalEmailProvider')
@@ -34,7 +34,7 @@ class RecoveryPasswordService implements IRecoveryPasswordService {
     if (!user) throw new UserNotFoundException();
 
     const token = await this._randomTokenService.generate();
-
+    this._recoveryPasswordTokenRepository.deleteByUserId(user.id!);
     this._recoveryPasswordTokenRepository.create({
       token,
       userId: user.id!,

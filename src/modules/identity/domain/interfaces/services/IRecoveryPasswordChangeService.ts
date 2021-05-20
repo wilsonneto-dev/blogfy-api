@@ -1,7 +1,7 @@
 export interface IRecoveryPasswordChangeServiceRequest {
   email: string;
   token: string;
-  newPasword: string;
+  newPassword: string;
 }
 
 export interface IRecoveryPasswordChangeServiceResponse {

@@ -2,7 +2,6 @@ import AuthenticationFailedException from '@modules/identity/domain/errors/Authe
 import EmailAlreadyExistsException from '@modules/identity/domain/errors/EmailAlreadyExistsException';
 import InvalidPasswordException from '@modules/identity/domain/errors/InvalidPasswordException';
 import UserNotFoundException from '@modules/identity/domain/errors/UserNotFoundException';
-import ICreateUserService from '@modules/identity/domain/interfaces/services/ICreateUserService';
 import IUpdatePasswordService from '@modules/identity/domain/interfaces/services/IUpdatePasswordService';
 import IUpdateUserService from '@modules/identity/domain/interfaces/services/IUpdateUserService';
 import AppHttpError from '@shared/errors/AppHttpError';

@@ -9,7 +9,7 @@ import Workspace from '../entities/Workspace';
 import InvalidRecoveryPasswordTokenException from '../errors/InvalidRecoveryPasswordTokenException';
 import IRecoveryPasswordTokenRepository from '../interfaces/repositories/IRecoveryPasswordTokenRepository';
 import IUsersRepository from '../interfaces/repositories/IUsersRepository';
-import RecoveryPasswordChangeService from './RecoveryPasswordChangeServiceResponse';
+import RecoveryPasswordChangeService from './RecoveryPasswordChangeService';
 import ICheckRecoveryPasswordTokenService, {
   ICheckRecoveryPasswordTokenServiceRequest,
   ICheckRecoveryPasswordTokenServiceResponse,
@@ -18,6 +18,7 @@ import ICheckRecoveryPasswordTokenService, {
 class FakeCheckRecoveryPasswordTokenServiceFailure
   implements ICheckRecoveryPasswordTokenService {
   async execute(
+    // eslint-disable-next-line no-unused-vars
     _: ICheckRecoveryPasswordTokenServiceRequest,
   ): Promise<ICheckRecoveryPasswordTokenServiceResponse> {
     return { valid: false };
@@ -27,6 +28,7 @@ class FakeCheckRecoveryPasswordTokenServiceFailure
 class FakeCheckRecoveryPasswordTokenServiceSuccess
   implements ICheckRecoveryPasswordTokenService {
   async execute(
+    // eslint-disable-next-line no-unused-vars
     _: ICheckRecoveryPasswordTokenServiceRequest,
   ): Promise<ICheckRecoveryPasswordTokenServiceResponse> {
     return { valid: true };
@@ -68,13 +70,14 @@ describe('RecoveryPasswordChangeService', () => {
       fakeUsersRepository,
       new FakeCheckRecoveryPasswordTokenServiceSuccess(),
       new FakePasswordHashProvider(),
+      new FakeRecoveryPasswordTokenRepository(),
     );
 
     await expect(
       recoveryPasswordChangeService.execute({
         token: fakeToken,
         email: 'invalid-email',
-        newPasword: 'newpassword',
+        newPassword: 'newpassword',
       }),
     ).rejects.toBeInstanceOf(InvalidRecoveryPasswordTokenException);
   });
@@ -84,13 +87,14 @@ describe('RecoveryPasswordChangeService', () => {
       fakeUsersRepository,
       new FakeCheckRecoveryPasswordTokenServiceFailure(),
       new FakePasswordHashProvider(),
+      new FakeRecoveryPasswordTokenRepository(),
     );
 
     await expect(
       recoveryPasswordChangeService.execute({
         token: fakeToken,
         email: 'invalid-email',
-        newPasword: 'newpassword',
+        newPassword: 'newpassword',
       }),
     ).rejects.toBeInstanceOf(InvalidRecoveryPasswordTokenException);
   });
@@ -100,14 +104,37 @@ describe('RecoveryPasswordChangeService', () => {
       fakeUsersRepository,
       new FakeCheckRecoveryPasswordTokenServiceSuccess(),
       new FakePasswordHashProvider(),
+      new FakeRecoveryPasswordTokenRepository(),
     );
 
     const serviceResponse = await recoveryPasswordChangeService.execute({
       token: fakeToken,
       email: fakeUser.email,
-      newPasword: 'newpassword',
+      newPassword: 'newpassword',
     });
 
     expect(serviceResponse.success).toBe(true);
+  });
+
+  it('should delete user past tokens', async () => {
+    const fakeRecoveryPasswordTokensRepository = new FakeRecoveryPasswordTokenRepository();
+    const fakeFunction = jest.fn();
+    fakeRecoveryPasswordTokensRepository.deleteByUserId = fakeFunction;
+
+    const recoveryPasswordChangeService = new RecoveryPasswordChangeService(
+      fakeUsersRepository,
+      new FakeCheckRecoveryPasswordTokenServiceSuccess(),
+      new FakePasswordHashProvider(),
+      fakeRecoveryPasswordTokensRepository,
+    );
+
+    const serviceResponse = await recoveryPasswordChangeService.execute({
+      token: fakeToken,
+      email: fakeUser.email,
+      newPassword: 'newpassword',
+    });
+
+    expect(serviceResponse.success).toBe(true);
+    expect(fakeFunction).toBeCalled();
   });
 });

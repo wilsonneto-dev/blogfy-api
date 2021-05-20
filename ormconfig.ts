@@ -13,9 +13,10 @@ export const config: ConnectionOptions = {
   logging: enviromentConfig.logging,
 
   extra: {
-    ssl: {
+    ssl: false,
+    /* {
       rejectUnauthorized: false,
-    },
+    } */
   },
 
   entities: ['./src/**/typeorm/schemas/*.{ts,js}'],

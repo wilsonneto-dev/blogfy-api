@@ -1,6 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 import InvalidRecoveryPasswordTokenException from '../errors/InvalidRecoveryPasswordTokenException';
 import IHashProvider from '../interfaces/providers/IHashProvider';
+import IRecoveryPasswordTokensRepository from '../interfaces/repositories/IRecoveryPasswordTokenRepository';
 import IUsersRepository from '../interfaces/repositories/IUsersRepository';
 import ICheckRecoveryPasswordTokenService from '../interfaces/services/ICheckRecoveryPasswordTokenService';
 import IRecoveryPasswordChangeService, {
@@ -19,12 +20,15 @@ class RecoveryPasswordChangeService implements IRecoveryPasswordChangeService {
 
     @inject('HashProvider')
     private _hashProvider: IHashProvider,
+
+    @inject('RecoveryPasswordTokensRepository')
+    private _recoveryPasswordTokensRepository: IRecoveryPasswordTokensRepository,
   ) {}
 
   async execute({
     token,
     email,
-    newPasword,
+    newPassword,
   }: IRecoveryPasswordChangeServiceRequest): Promise<
     IRecoveryPasswordChangeServiceResponse
   > {
@@ -41,10 +45,12 @@ class RecoveryPasswordChangeService implements IRecoveryPasswordChangeService {
     const user = await this._usersRepository.findUserByEmail(email);
     if (!user) throw new InvalidRecoveryPasswordTokenException();
 
-    const hashedPassword = await this._hashProvider.hash(newPasword);
+    const hashedPassword = await this._hashProvider.hash(newPassword);
     user.password = hashedPassword;
 
     await this._usersRepository.update(user);
+
+    await this._recoveryPasswordTokensRepository.deleteByUserId(user.id!);
 
     return {
       success: true,

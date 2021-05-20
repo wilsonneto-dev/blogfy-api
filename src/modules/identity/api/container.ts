@@ -38,6 +38,8 @@ import IRecoveryPasswordService from '../domain/interfaces/services/IRecoveryPas
 import RecoveryPasswordService from '../domain/services/RecoveryPasswordService';
 import ICheckRecoveryPasswordTokenService from '../domain/interfaces/services/ICheckRecoveryPasswordTokenService';
 import CheckRecoveryPasswordTokenService from '../domain/services/CheckRecoveryPasswordTokenService';
+import IRecoveryPasswordChangeService from '../domain/interfaces/services/IRecoveryPasswordChangeService';
+import RecoveryPasswordChangeService from '../domain/services/RecoveryPasswordChangeService';
 
 // services
 container.register<ICreateAccountService>(
@@ -92,20 +94,9 @@ container.register<ICheckRecoveryPasswordTokenService>(
   CheckRecoveryPasswordTokenService,
 );
 
-// repositories
-container.registerSingleton<IUsersRepository>(
-  'UsersRepository',
-  UsersRepository,
-);
-
-container.registerSingleton<IWorkspacesRepository>(
-  'WorkspacesRepository',
-  WorkspacesRepository,
-);
-
-container.registerSingleton<IRecoveryPasswordTokensRepository>(
-  'RecoveryPasswordTokenRepository',
-  RecoveryPasswordTokensRepository,
+container.register<IRecoveryPasswordChangeService>(
+  'RecoveryPasswordChangeService',
+  RecoveryPasswordChangeService,
 );
 
 // providers
@@ -123,4 +114,20 @@ container.register<IRandomTokenProvider>(
 container.register<ITransactionalEmailProvider>(
   'TransactionalEmailProvider',
   FakeTransactionalEmailProvider,
+);
+
+// repositories
+container.registerSingleton<IUsersRepository>(
+  'UsersRepository',
+  UsersRepository,
+);
+
+container.registerSingleton<IWorkspacesRepository>(
+  'WorkspacesRepository',
+  WorkspacesRepository,
+);
+
+container.registerSingleton<IRecoveryPasswordTokensRepository>(
+  'RecoveryPasswordTokensRepository',
+  RecoveryPasswordTokensRepository,
 );

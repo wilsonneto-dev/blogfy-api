@@ -11,7 +11,7 @@ import ICheckRecoveryPasswordTokenService, {
 class CheckRecoveryPasswordTokenService
   implements ICheckRecoveryPasswordTokenService {
   constructor(
-    @inject('RecoveryPasswordTokenRepository')
+    @inject('RecoveryPasswordTokensRepository')
     private _recoveryPasswordTokenRepository: IRecoveryPasswordTokenRepository,
 
     @inject('UsersRepository')
