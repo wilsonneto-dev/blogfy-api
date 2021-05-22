@@ -67,7 +67,7 @@ Running the integration tests:<br />
 `npm run test:integration`
 
 Running the Postgres in a container:<br />
-`docker run --name my_container_postgres -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres`
+`docker run --name my_container_postgres -e POSTGRES_PASSWORD=password -p 5432:5432 -d postgres`<br />
 `docker run -d --name blogfy-database -p 5432:5432 -e POSTGRES_PASSWORD=blogfy123 -e POSTGRES_USER=blogfy -e POSTGRES_DB=blogfy postgres`
 
 <hr />
