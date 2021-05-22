@@ -1,0 +1,143 @@
+{
+  "openapi": "3.0.0",
+  "servers": [
+    {
+      "url": "http://localhost:3000/",
+      "description": "Development server"
+    }
+  ],
+  "info": {
+    "version": "1.0.0",
+    "title": "Blogfy API",
+    "description": "Blogfy API Documentation"
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "description": "Just a endpont to verify server availability",
+        "responses": {
+          "200": {
+            "description": "Server is running ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "status": "running"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    
+    "/accounts": {
+      "post": {
+        "description": "Create a new account on platform",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "email": { "type": "string" },
+                  "password": { "type": "string" },
+                  "workspace": { "type": "string" },
+                  "workspaceURL": { "type": "string" },
+                },
+                "example": {
+                  "name": "Jhon Doe",
+                  "email": "jhon.doe@email.com",
+                  "password": "fd5g5dg4645%&",
+                  "workspace": "Jhon Doe Blog",
+                  "workspaceURL": "jhon-doe-blog-url",
+                },
+                "required": [ "name", "email", "password", "workspace", "workspaceURL" ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Account created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "userId": { "type": "string", "description": "user UUID" },
+                    "name":  { "type": "string" },
+                    "email":  { "type": "string" },
+                    "workspaceId":  { "type": "string", "description": "workspace UUID" },
+                    "workspace":  { "type": "string" },
+                    "workspaceURL":  { "type": "string" }
+                  },
+                  "example": {
+                    "userId": "1a7a7edd-b5a6-403e-8197-bd9a1856f179",
+                    "name": "Jhon Doe",
+                    "email": "jhon.doe@email.com",
+                    "workspaceId": "dde7a6d0-724a-49a2-ac57-13fac344d608",
+                    "workspace": "Jhon Doe Blog",
+                    "workspaceURL": "jhon-doe-blog-url"
+                  }
+                }
+              }
+            }
+          },
+          
+          "409": {
+            "description": "Conflict - E-mail or WorkspaceURL already exists in the database",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    "$ref": "#/components/schemas/GeneralAPIError",
+                    "example": {
+                      "status": "error",
+                      "message": "Email already exists in the database"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+          
+        }
+      }
+    }
+  },
+  
+  "components": {
+    "schemas": {
+      "GeneralAPIError": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [ "status", "message" ],
+        "example": {
+          "status": "error",
+          "message": "Problema description"
+        }
+      }
+    }
+  }
+  
+}
