@@ -1,7 +1,7 @@
 import IUsersRepository from '@modules/identity/domain/interfaces/repositories/IUsersRepository';
 import User from '@modules/identity/domain/entities/User';
 
-class FakeUserRepository implements IUsersRepository {
+class FakeUsersRepository implements IUsersRepository {
   private base: Array<User> = [];
 
   async create(user: User): Promise<User> {
@@ -33,4 +33,4 @@ class FakeUserRepository implements IUsersRepository {
   }
 }
 
-export default FakeUserRepository;
+export default FakeUsersRepository;

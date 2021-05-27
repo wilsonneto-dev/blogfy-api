@@ -1,4 +1,5 @@
 import { inject, injectable } from 'tsyringe';
+
 import UserNotFoundException from '../errors/UserNotFoundException';
 import UserWithoutPermissionsException from '../errors/UserWithoutPermissionsException';
 import IUsersRepository from '../interfaces/repositories/IUsersRepository';

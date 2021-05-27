@@ -1,7 +1,7 @@
 import IWorkspaceRepository from '@modules/identity/domain/interfaces/repositories/IWorkspaceRepository';
 import Workspace from '@modules/identity/domain/entities/Workspace';
 
-class FakeWorkspaceRepository implements IWorkspaceRepository {
+class FakeWorkspacesRepository implements IWorkspaceRepository {
   private base: Array<Workspace> = [];
 
   async create(
@@ -32,4 +32,4 @@ class FakeWorkspaceRepository implements IWorkspaceRepository {
   }
 }
 
-export default FakeWorkspaceRepository;
+export default FakeWorkspacesRepository;

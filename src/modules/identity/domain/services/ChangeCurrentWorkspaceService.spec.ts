@@ -1,7 +1,6 @@
 import 'reflect-metadata';
 
 import FakeUserRepository from '@modules/identity/infra/data/mocks/repositories/FakeUsersRepository';
-import JWTAuthenticationTokenProvider from '@modules/identity/infra/providers/JWTAuthenticationTokenProvider';
 import FakeAuthenticationTokenProvider from '@modules/identity/infra/providers/mocks/FakeAuthenticationTokenProvider';
 import User from '../entities/User';
 import Workspace from '../entities/Workspace';

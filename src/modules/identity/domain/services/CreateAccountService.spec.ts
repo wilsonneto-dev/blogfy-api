@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 
 import FakeUserRepository from '@modules/identity/infra/data/mocks/repositories/FakeUsersRepository';
-import FakeWorkspaceRepository from '@modules/identity/infra/data/mocks/repositories/FakeWorkspaceRepository';
+import FakeWorkspacesRepository from '@modules/identity/infra/data/mocks/repositories/FakeWorkspacesRepository';
 import FakePasswordHashProvider from '@modules/identity/infra/providers/mocks/FakeHashProvider';
 import EmailAlreadyExistsException from '@modules/identity/domain/errors/EmailAlreadyExistsException';
 
@@ -29,7 +29,7 @@ describe('CreateAccountService', () => {
   it('should create user and workspace and return both ids', async () => {
     const createAccountService = new CreateAccountService(
       new FakeUserRepository(),
-      new FakeWorkspaceRepository(),
+      new FakeWorkspacesRepository(),
       new FakePasswordHashProvider(),
     );
 
@@ -44,7 +44,7 @@ describe('CreateAccountService', () => {
   it('should not create a user with duplicated email', async () => {
     const createAccountService = new CreateAccountService(
       new FakeUserRepository(),
-      new FakeWorkspaceRepository(),
+      new FakeWorkspacesRepository(),
       new FakePasswordHashProvider(),
     );
 
@@ -68,7 +68,7 @@ describe('CreateAccountService', () => {
   it('should not create a workspace with duplicated URL', async () => {
     const createAccountService = new CreateAccountService(
       new FakeUserRepository(),
-      new FakeWorkspaceRepository(),
+      new FakeWorkspacesRepository(),
       new FakePasswordHashProvider(),
     );
 

@@ -52,14 +52,14 @@
                   "email": { "type": "string" },
                   "password": { "type": "string" },
                   "workspace": { "type": "string" },
-                  "workspaceURL": { "type": "string" },
+                  "workspaceURL": { "type": "string" }
                 },
                 "example": {
                   "name": "Jhon Doe",
                   "email": "jhon.doe@email.com",
                   "password": "fd5g5dg4645%&",
                   "workspace": "Jhon Doe Blog",
-                  "workspaceURL": "jhon-doe-blog-url",
+                  "workspaceURL": "jhon-doe-blog-url"
                 },
                 "required": [ "name", "email", "password", "workspace", "workspaceURL" ]
               }
@@ -100,10 +100,11 @@
               "application/json": {
                 "schema": {
                   "allOf": [
-                    "$ref": "#/components/schemas/GeneralAPIError",
-                    "example": {
-                      "status": "error",
-                      "message": "Email already exists in the database"
+                    { "$ref": "#/components/schemas/GeneralAPIError" },
+                    { "example": {
+                        "status": "error",
+                        "message": "Email already exists in the database"
+                      }
                     }
                   ]
                 }

@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 
-import FakeRecoveryPasswordTokenRepository from '@modules/identity/infra/data/mocks/repositories/FakeRecoveryPasswordTokenRepository';
+import FakeRecoveryPasswordTokensRepository from '@modules/identity/infra/data/mocks/repositories/FakeRecoveryPasswordTokensRepository';
 import FakeUserRepository from '@modules/identity/infra/data/mocks/repositories/FakeUsersRepository';
 import User from '../entities/User';
 import Workspace from '../entities/Workspace';
@@ -40,7 +40,7 @@ const fakeSecondUser = <User>{
 describe('CheckRecoveryPasswordTokenService', () => {
   beforeEach(async () => {
     fakeUsersRepository = new FakeUserRepository();
-    fakeRecoveryPasswordTokenRepository = new FakeRecoveryPasswordTokenRepository();
+    fakeRecoveryPasswordTokenRepository = new FakeRecoveryPasswordTokensRepository();
 
     const savedUser = await fakeUsersRepository.create(fakeUser);
     await fakeUsersRepository.create(fakeSecondUser);

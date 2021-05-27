@@ -1,11 +1,11 @@
-import FakeUserRepository from '@modules/identity/infra/data/mocks/repositories/FakeUsersRepository';
-import FakeWorkspaceRepository from '@modules/identity/infra/data/mocks/repositories/FakeWorkspaceRepository';
 import 'reflect-metadata';
+
+import FakeUserRepository from '@modules/identity/infra/data/mocks/repositories/FakeUsersRepository';
+import FakeWorkspacesRepository from '@modules/identity/infra/data/mocks/repositories/FakeWorkspacesRepository';
 import User from '../entities/User';
 import Workspace from '../entities/Workspace';
 import UserNotFoundException from '../errors/UserNotFoundException';
 import UserWithoutPermissionsException from '../errors/UserWithoutPermissionsException';
-import WorkspaceNotFoundException from '../errors/WorkspaceNotFoundException';
 import WorkspaceUrlAlreadyExistsException from '../errors/WorkspaceUrlAlreadyExistsException';
 import IUsersRepository from '../interfaces/repositories/IUsersRepository';
 import IWorkspacesRepository from '../interfaces/repositories/IWorkspaceRepository';
@@ -37,7 +37,7 @@ let fakeUsersRepository: IUsersRepository;
 
 describe('UpdateWorkspaceService', () => {
   beforeEach(async () => {
-    fakeWorkspacesRepository = new FakeWorkspaceRepository();
+    fakeWorkspacesRepository = new FakeWorkspacesRepository();
     const savedWorkspace = await fakeWorkspacesRepository.create(fakeWorkspace);
     const savedSecondWorkspace = await fakeWorkspacesRepository.create(
       fakeSecondWorkspace,

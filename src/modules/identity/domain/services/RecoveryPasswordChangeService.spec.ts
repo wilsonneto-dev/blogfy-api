@@ -1,7 +1,7 @@
 /* eslint-disable max-classes-per-file */
 import 'reflect-metadata';
 
-import FakeRecoveryPasswordTokenRepository from '@modules/identity/infra/data/mocks/repositories/FakeRecoveryPasswordTokenRepository';
+import FakeRecoveryPasswordTokensRepository from '@modules/identity/infra/data/mocks/repositories/FakeRecoveryPasswordTokensRepository';
 import FakeUserRepository from '@modules/identity/infra/data/mocks/repositories/FakeUsersRepository';
 import FakePasswordHashProvider from '@modules/identity/infra/providers/mocks/FakeHashProvider';
 import User from '../entities/User';
@@ -54,7 +54,7 @@ const fakeUser = <User>{
 
 describe('RecoveryPasswordChangeService', () => {
   beforeEach(async () => {
-    fakeRecoveryPasswordTokenRepository = new FakeRecoveryPasswordTokenRepository();
+    fakeRecoveryPasswordTokenRepository = new FakeRecoveryPasswordTokensRepository();
     fakeUsersRepository = new FakeUserRepository();
 
     const fakeSavedUser = await fakeUsersRepository.create(fakeUser);
@@ -70,7 +70,7 @@ describe('RecoveryPasswordChangeService', () => {
       fakeUsersRepository,
       new FakeCheckRecoveryPasswordTokenServiceSuccess(),
       new FakePasswordHashProvider(),
-      new FakeRecoveryPasswordTokenRepository(),
+      new FakeRecoveryPasswordTokensRepository(),
     );
 
     await expect(
@@ -87,7 +87,7 @@ describe('RecoveryPasswordChangeService', () => {
       fakeUsersRepository,
       new FakeCheckRecoveryPasswordTokenServiceFailure(),
       new FakePasswordHashProvider(),
-      new FakeRecoveryPasswordTokenRepository(),
+      new FakeRecoveryPasswordTokensRepository(),
     );
 
     await expect(
@@ -104,7 +104,7 @@ describe('RecoveryPasswordChangeService', () => {
       fakeUsersRepository,
       new FakeCheckRecoveryPasswordTokenServiceSuccess(),
       new FakePasswordHashProvider(),
-      new FakeRecoveryPasswordTokenRepository(),
+      new FakeRecoveryPasswordTokensRepository(),
     );
 
     const serviceResponse = await recoveryPasswordChangeService.execute({
@@ -117,7 +117,7 @@ describe('RecoveryPasswordChangeService', () => {
   });
 
   it('should delete user past tokens', async () => {
-    const fakeRecoveryPasswordTokensRepository = new FakeRecoveryPasswordTokenRepository();
+    const fakeRecoveryPasswordTokensRepository = new FakeRecoveryPasswordTokensRepository();
     const fakeFunction = jest.fn();
     fakeRecoveryPasswordTokensRepository.deleteByUserId = fakeFunction;
 

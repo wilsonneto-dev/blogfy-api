@@ -7,8 +7,6 @@ import '@shared/infra/data/typeorm';
 import '@shared/api/container';
 
 import errorsHandler from '@shared/api/http/middlewares/errors';
-import config from '@config/http';
-
 import router from './routes';
 
 dotenv.config();
@@ -23,7 +21,4 @@ app.get('/', (_request, response) => {
   response.json({ status: 'running' });
 });
 
-app.listen(config.port, () => {
-  // eslint-disable-next-line no-console
-  console.log(`running on http://localhost:${config.port}/`);
-});
+export default app;
