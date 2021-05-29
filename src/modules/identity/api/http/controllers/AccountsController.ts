@@ -39,6 +39,10 @@ class AccountsController {
           HttpStatusCode.Conflict,
         );
       }
+
+      console.log(process.env);
+      console.log(error);
+      throw error;
     }
   }
 }

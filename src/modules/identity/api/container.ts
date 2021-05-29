@@ -1,7 +1,5 @@
 import { container } from 'tsyringe';
 
-import ICreateWorkspaceService from '../domain/interfaces/services/ICreateWorkspaceService';
-import CreateWorkspaceService from '../domain/services/CreateWorkspaceService';
 import ICreateAccountService from '../domain/interfaces/services/ICreateAccountService';
 import CreateAccountService from '../domain/services/CreateAccountService';
 
@@ -45,11 +43,6 @@ import RecoveryPasswordChangeService from '../domain/services/RecoveryPasswordCh
 container.register<ICreateAccountService>(
   'CreateAccountService',
   CreateAccountService,
-);
-
-container.register<ICreateWorkspaceService>(
-  'CreateWorkspaceService',
-  CreateWorkspaceService,
 );
 
 container.register<IAuthenticateUserService>(

@@ -28,7 +28,7 @@ export default {
     '<rootDir>/src/modules/**/services/*.ts',
     '<rootDir>/src/**/providers/**/*.ts',
     '<rootDir>/src/**/providers/*.ts',
-    '!<rootDir>/src/**/mocks/**.ts',
+    '!<rootDir>/src/**/mocks/**/*.ts',
     '!<rootDir>/src/**/mocks/*.ts',
   ],
 

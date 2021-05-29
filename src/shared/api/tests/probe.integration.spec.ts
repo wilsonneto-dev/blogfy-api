@@ -6,9 +6,9 @@ describe('/ [GET]', () => {
   it('shoud respond with a 200 OK', done => {
     request(app)
       .get('/')
-      .expect(200)
-      .end(err => {
+      .end((err, res) => {
         if (err) return done(err);
+        expect(res.statusCode).toEqual(200);
         return done();
       });
   });
