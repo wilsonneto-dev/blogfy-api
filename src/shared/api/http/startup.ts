@@ -1,7 +1,12 @@
 import app from '@shared/api/http/app';
-import config from '@config/http';
+import { IHTTPConfiguration } from '@config/HTTPConfiguration';
+import { container } from 'tsyringe';
 
-app.listen(config.port, () => {
+const httpConfiguration: IHTTPConfiguration = container.resolve(
+  'HTTPConfiguration',
+);
+
+app.listen(httpConfiguration.port, () => {
   // eslint-disable-next-line no-console
-  console.log(`running on http://localhost:${config.port}/`);
+  console.log(`running on http://localhost:${httpConfiguration.port}/`);
 });

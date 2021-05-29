@@ -1,6 +1,6 @@
 type DatabaseTypes = 'postgres';
 
-interface IDatabaseConfiguration {
+export interface IDatabaseConfiguration {
   name: string;
   type: DatabaseTypes;
   host: string;
@@ -11,7 +11,7 @@ interface IDatabaseConfiguration {
   logging: boolean;
 }
 
-const config: IDatabaseConfiguration = {
+const DatabaseConfiguration: IDatabaseConfiguration = {
   name: process.env.DATABASE_LABEL!,
   type: process.env.DATABASE_TYPE! as DatabaseTypes,
   host: process.env.DATABASE_HOST!,
@@ -22,4 +22,4 @@ const config: IDatabaseConfiguration = {
   logging: process.env.DATABASE_LOGGING?.toLowerCase() === 'true',
 };
 
-export default config;
+export default DatabaseConfiguration;

@@ -1,5 +1,4 @@
 import { sign, verify, decode, TokenExpiredError } from 'jsonwebtoken';
-import config from '@config/identity';
 
 import User from '@modules/identity/domain/entities/User';
 import IAuthenticationTokenProvider, {
@@ -7,17 +6,27 @@ import IAuthenticationTokenProvider, {
 } from '@modules/identity/domain/interfaces/providers/IAuthenticationTokenProvider';
 import Workspace from '@modules/identity/domain/entities/Workspace';
 import IUsersRepository from '@modules/identity/domain/interfaces/repositories/IUsersRepository';
-import { container } from 'tsyringe';
+import { inject, injectable } from 'tsyringe';
 import UserNotFoundException from '@modules/identity/domain/errors/UserNotFoundException';
 import AuthenticationSessionExpiredException from '@modules/identity/domain/errors/AuthenticationSessionExpiredException';
 import InvalidAuthenticationTokenException from '@modules/identity/domain/errors/InvalidAuthenticationTokenException';
+import { IIdentityConfiguration } from '@config/IdentityConfiguration';
 
+@injectable()
 class JWTAuthenticationTokenProvider implements IAuthenticationTokenProvider {
+  constructor(
+    @inject('UsersRepository')
+    private _usersRepository: IUsersRepository,
+
+    @inject('IdentityConfiguration')
+    private _identityConfiguration: IIdentityConfiguration,
+  ) {}
+
   async verify(token: string): Promise<IAuthenticationTokenPayload> {
     try {
       const tokenPayload: IAuthenticationTokenPayload = verify(
         token,
-        config.authTokenKey,
+        this._identityConfiguration.authTokenKey,
       ) as IAuthenticationTokenPayload;
 
       return tokenPayload;
@@ -40,11 +49,7 @@ class JWTAuthenticationTokenProvider implements IAuthenticationTokenProvider {
     if (!tokenPayloadWithoutValidations)
       throw new InvalidAuthenticationTokenException();
 
-    const usersRepository: IUsersRepository = container.resolve<
-      IUsersRepository
-    >('UsersRepository');
-
-    const user = await usersRepository.findById(
+    const user = await this._usersRepository.findById(
       tokenPayloadWithoutValidations.sub,
     );
 
@@ -53,7 +58,7 @@ class JWTAuthenticationTokenProvider implements IAuthenticationTokenProvider {
     try {
       const tokenPayload = verify(
         token,
-        `${config.authRefreshTokenKey}-${user.password}`,
+        `${this._identityConfiguration.authRefreshTokenKey}-${user.password}`,
       ) as IAuthenticationTokenPayload;
 
       return tokenPayload;
@@ -68,8 +73,8 @@ class JWTAuthenticationTokenProvider implements IAuthenticationTokenProvider {
       workspaceId: workspace.id,
     };
 
-    const token = sign(payload, config.authTokenKey, {
-      expiresIn: config.authTokenExpiresIn,
+    const token = sign(payload, this._identityConfiguration.authTokenKey, {
+      expiresIn: this._identityConfiguration.authTokenExpiresIn,
     });
     return token;
   }
@@ -82,9 +87,9 @@ class JWTAuthenticationTokenProvider implements IAuthenticationTokenProvider {
 
     const token = sign(
       payload,
-      `${config.authRefreshTokenKey}-${user.password}`,
+      `${this._identityConfiguration.authRefreshTokenKey}-${user.password}`,
       {
-        expiresIn: config.authRefreshTokenExpiresIn,
+        expiresIn: this._identityConfiguration.authRefreshTokenExpiresIn,
       },
     );
     return token;

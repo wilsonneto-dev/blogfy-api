@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import { ConnectionOptions } from 'typeorm';
-import enviromentConfig from './src/config/database';
+import enviromentConfig from './src/config/DatabaseConfiguration';
 
 export const config: ConnectionOptions = {
   name: enviromentConfig.name,
