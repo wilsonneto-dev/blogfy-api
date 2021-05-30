@@ -8,5 +8,5 @@ const httpConfiguration: IHTTPConfiguration = container.resolve(
 
 app.listen(httpConfiguration.port, () => {
   // eslint-disable-next-line no-console
-  console.log(`running on http://localhost:${httpConfiguration.port}/`);
+  // console.log(`running on http://localhost:${httpConfiguration.port}/`);
 });
