@@ -1,3 +1,4 @@
+import { inject, injectable } from 'tsyringe';
 import { sign, verify, decode, TokenExpiredError } from 'jsonwebtoken';
 
 import User from '@modules/identity/domain/entities/User';
@@ -6,7 +7,6 @@ import IAuthenticationTokenProvider, {
 } from '@modules/identity/domain/interfaces/providers/IAuthenticationTokenProvider';
 import Workspace from '@modules/identity/domain/entities/Workspace';
 import IUsersRepository from '@modules/identity/domain/interfaces/repositories/IUsersRepository';
-import { inject, injectable } from 'tsyringe';
 import UserNotFoundException from '@modules/identity/domain/errors/UserNotFoundException';
 import AuthenticationSessionExpiredException from '@modules/identity/domain/errors/AuthenticationSessionExpiredException';
 import InvalidAuthenticationTokenException from '@modules/identity/domain/errors/InvalidAuthenticationTokenException';
